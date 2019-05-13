@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <div t-name="opensim.js_banner" id="os_banner">
+        <span class="os_logo">OdooSIM</span>
+        <t t-if="widget.team">
+            <span class="os_team">TEAM
+            <t t-esc="widget.team"/></span>
+        </t>
+        <span class="os_spacer"></span>
+        <t t-if="widget.active">
+                <span class="os_day">
+                    <i class="fa fa-calendar"></i>
+                </span>
+                <div class="flip">
+                        <div class="item">
+                            <span class="face front os_day">
+                                <t t-esc="widget.today"></t>
+                            </span>
+                            <span class="face back os_day">
+                                <t t-esc="widget.tomorrow"></t>
+                            </span>
+                        </div>
+                </div>
+                <span class="os_clock os_day">
+                    <i class="fa fa-clock-o"></i>
+                    <t t-esc="widget.duration"></t>
+                </span>
+        </t>
+    </div>
+</templates>
+

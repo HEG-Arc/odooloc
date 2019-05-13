@@ -1,0 +1,33 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="oddo-bin" type="PythonConfigurationType" factoryName="Python">
+    <module name="opensim" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+      <env name="PYCHARM_DEBUG" value="False" />
+    </envs>
+    <option name="SDK_HOME" value="docker-compose://[$PROJECT_DIR$/docker-compose.yml]:odoo/python3" />
+    <option name="WORKING_DIRECTORY" value="" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+    <PathMappingSettings>
+      <option name="pathMappings">
+        <list>
+          <mapping local-root="$PROJECT_DIR$/../external/odoo/addons" remote-root="/usr/lib/python3/dist-packages/odoo/addons" />
+          <mapping local-root="$PROJECT_DIR$/addons" remote-root="/opt/project/addons" />
+        </list>
+      </option>
+    </PathMappingSettings>
+    <option name="SCRIPT_NAME" value="/usr/bin/odoo" />
+    <option name="PARAMETERS" value="--dev=reload --without-demo=all --addons-path=/opt/odoo/community_addons,/opt/project/addons --db_user=odoo --db_password=odoo --db_host=db -d odoo  -i opensim" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <option name="MODULE_MODE" value="false" />
+    <option name="REDIRECT_INPUT" value="false" />
+    <option name="INPUT_FILE" value="" />
+    <method v="2" />
+  </configuration>
+</component>

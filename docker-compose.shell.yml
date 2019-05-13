@@ -1,0 +1,25 @@
+version: '3'
+# odoo shell optional container
+# usage : add as an extra -f parameter to docker-compose
+# e.g to build and start default (ptpython) odoo shell configured for opensim
+#
+# docker-compose -f docker-compose.yml -f docker-compose.shell.yml run shell
+
+services:
+
+  shell:
+    build: docker/shell/
+    depends_on:
+    - db
+    environment:
+    - POSTGRES_PASSWORD=odoo
+    - POSTGRES_USER=odoo
+    ports:
+    - "8888:8888"
+    volumes:
+    - ./notebooks:/mnt/notebooks
+    - ./addons:/mnt/extra-addons
+
+
+
+

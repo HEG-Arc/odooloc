@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+          <!-- "Arabica Roasted Fair Trade Organic Coffee Beans" BOM:__export__.mrp_bom_5_fb899201 -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_5_fb899201">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_36_ff27b42a"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_7_7229ae91">
+            <field name="bom_id" ref="opensim.mrp_bom_5_fb899201"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Arabica Fair Trade Organic Coffee Beans')]"/>
+            <field name="product_qty" type="float">1.25</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <!-- "Robusta Decaffeinated Coffee Beans" BOM:__export__.mrp_bom_2_e32cb8ee -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_2_e32cb8ee">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_31_116c8ebc"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_4_9216d8b2">
+            <field name="bom_id" ref="opensim.mrp_bom_2_e32cb8ee"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Robusta Coffee Beans')]"/>
+            <field name="product_qty" type="float">1.15</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <!-- "Arabica Decaffeinated Coffee Beans" BOM:__export__.mrp_bom_1_2ba0104f -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_1_2ba0104f">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_30_6e265bcc"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_1_782cfc45">
+            <field name="bom_id" ref="opensim.mrp_bom_1_2ba0104f"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Arabica Coffee Beans')]"/>
+            <field name="product_qty" type="float">1.15</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <!-- "Arabica Roasted Coffee Beans" BOM:__export__.mrp_bom_3_852387eb -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_3_852387eb">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_26_bd3b3124"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_5_9dd7661e">
+            <field name="bom_id" ref="opensim.mrp_bom_3_852387eb"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Arabica Coffee Beans')]"/>
+            <field name="product_qty" type="float">1.25</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <!-- "Arabica Roasted Decaffeinated Coffee Beans" BOM:__export__.mrp_bom_4_917ce1ac -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_4_917ce1ac">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_35_621c8e8a"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_6_0042c9a7">
+            <field name="bom_id" ref="opensim.mrp_bom_4_917ce1ac"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Arabica Decaffeinated Coffee Beans')]"/>
+            <field name="product_qty" type="float">1.25</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <!-- "Robusta Roasted Coffee Beans" BOM:__export__.mrp_bom_6_f0e9e0ac -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_6_f0e9e0ac">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_32_6fa55e53"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_8_78189cd7">
+            <field name="bom_id" ref="opensim.mrp_bom_6_f0e9e0ac"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Robusta Coffee Beans')]"/>
+            <field name="product_qty" type="float">1.25</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <!-- "Robusta Roasted Decaffeinated Coffee Beans" BOM:__export__.mrp_bom_7_d09814a1 -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_7_d09814a1">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_34_9c9e6670"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_9_613c6376">
+            <field name="bom_id" ref="opensim.mrp_bom_7_d09814a1"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Robusta Decaffeinated Coffee Beans')]"/>
+            <field name="product_qty" type="float">1.25</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <!-- "Robusta Roasted Fair Trade Organic Coffee Beans" BOM:__export__.mrp_bom_8_a7686a49 -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_8_a7686a49">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_33_cbbfc1ae"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_10_025e6d4d">
+            <field name="bom_id" ref="opensim.mrp_bom_8_a7686a49"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Robusta Fair Trade Organic Coffee Beans')]"/>
+            <field name="product_qty" type="float">1.25</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <!-- "Arabica Grinded Coffee" BOM:__export__.mrp_bom_9_3354d530 -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_9_3354d530">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_37_10d50a70"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_11_d5d2c1fb">
+            <field name="bom_id" ref="opensim.mrp_bom_9_3354d530"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Arabica Roasted Coffee Beans')]"/>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <!-- "Arabica Grinded Decaffeinated Coffee" BOM:__export__.mrp_bom_10_38393864 -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_10_38393864">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_38_4673961a"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_12_24532410">
+            <field name="bom_id" ref="opensim.mrp_bom_10_38393864"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Arabica Roasted Decaffeinated Coffee Beans')]"/>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <!-- "Arabica Grinded Fair Trade Organic Coffee" BOM:__export__.mrp_bom_11_d39d91be -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_11_d39d91be">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_39_d199caa2"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_13_857546a1">
+            <field name="bom_id" ref="opensim.mrp_bom_11_d39d91be"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Arabica Roasted Fair Trade Organic Coffee Beans')]"/>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <!-- "Cattura Generoso Bag" BOM:__export__.mrp_bom_12_a1bd2562 -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_12_a1bd2562">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_5_87195457"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_unit"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_14_56c00cc8">
+            <field name="bom_id" ref="opensim.mrp_bom_12_a1bd2562"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Arabica Roasted Coffee Beans')]"/>
+            <field name="product_qty" type="float">4.0</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_15_bed1ccf7">
+            <field name="bom_id" ref="opensim.mrp_bom_12_a1bd2562"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Robusta Roasted Coffee Beans')]"/>
+            <field name="product_qty" type="float">4.0</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_16_44e7ebd2">
+            <field name="bom_id" ref="opensim.mrp_bom_12_a1bd2562"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Large Bag')]"/>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="product_uom_id" ref="product.product_uom_unit"/>
+        </record>
+
+        <!-- "Cattura Generoso Whole Bean Coffee" BOM:__export__.mrp_bom_13_33703998 -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_13_33703998">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_10_ed896b2a"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_unit"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_17_b539838d">
+            <field name="bom_id" ref="opensim.mrp_bom_13_33703998"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Arabica Roasted Coffee Beans')]"/>
+            <field name="product_qty" type="float">0.500</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_18_ea6d3c46">
+            <field name="bom_id" ref="opensim.mrp_bom_13_33703998"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Robusta Roasted Coffee Beans')]"/>
+            <field name="product_qty" type="float">0.500</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_19_631892ac">
+            <field name="bom_id" ref="opensim.mrp_bom_13_33703998"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Retail Bag')]"/>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_unit"/>
+        </record>
+
+        <!-- "Cattura Generoso Ground Coffee" BOM:__export__.mrp_bom_14_97ad99ce -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_14_97ad99ce">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_9_b9fe04b3"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_unit"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_20_31e9b9cc">
+            <field name="bom_id" ref="opensim.mrp_bom_14_97ad99ce"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Arabica Grinded Coffee')]"/>
+            <field name="product_qty" type="float">0.500</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_21_9f136173">
+            <field name="bom_id" ref="opensim.mrp_bom_14_97ad99ce"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Robusta Grinded Coffee')]"/>
+            <field name="product_qty" type="float">0.500</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_22_1b18ce76">
+            <field name="bom_id" ref="opensim.mrp_bom_14_97ad99ce"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Retail Bag')]"/>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_unit"/>
+        </record>
+
+        <!-- "Cattura Generoso Coffee Pods" BOM:__export__.mrp_bom_15_994d1027 -->
+
+        <record model="mrp.bom" id="opensim.mrp_bom_15_994d1027">
+            <field name="company_id" ref="opensim.res_company_A"/>
+            <field name="product_tmpl_id" ref="opensim.product_template_1_d2699c59"/>
+            <field name="ready_to_produce">asap</field>
+            <field name="product_qty" type="float">1.0</field>
+            <field name="type" type="char">normal</field>
+            <field name="sequence" type="int">0</field>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_unit"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_23_f31c7d08">
+            <field name="bom_id" ref="opensim.mrp_bom_15_994d1027"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Arabica Grinded Coffee')]"/>
+            <field name="product_qty" type="float">0.003</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_24_c25c58a8">
+            <field name="bom_id" ref="opensim.mrp_bom_15_994d1027"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Robusta Grinded Coffee')]"/>
+            <field name="product_qty" type="float">0.003</field>
+            <field name="product_uom_id" ref="product.product_uom_kgm"/>
+        </record>
+
+        <record model="mrp.bom.line" id="opensim.mrp_bom_line_25_ecfca492">
+            <field name="bom_id" ref="opensim.mrp_bom_15_994d1027"/>
+            <field name="product_id" model="product.product"
+                   search="[('name','=','Coffee Pod')]"/>
+            <field name="product_qty" type="float">1</field>
+            <field name="product_uom_id" ref="product.product_uom_unit"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:9.5
+    restart: always
+    environment:
+     - POSTGRES_PASSWORD=odoo
+     - POSTGRES_USER=odoo
+    ports:
+     - "5432:5432"
+  odoo:
+    build: ./docker/11.0/
+    restart: always
+    depends_on:
+     - db
+    ports:
+     - "8069:8069"
+    tty: true
+    command: -d odoo --dev=reload --without-demo=all --addons-path=/opt/odoo/community_addons,/mnt/extra-addons -i opensim
+
+    environment:
+     - POSTGRES_PASSWORD=odoo
+     - POSTGRES_USER=odoo
+    volumes:
+      - ./addons:/mnt/extra-addons
+

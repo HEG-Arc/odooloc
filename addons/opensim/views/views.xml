@@ -1,0 +1,109 @@
+<odoo>
+    <data>
+        <record id="base.main_partner" model="res.partner" context="{'default_is_company': True}">
+            <field name="name">HE-Arc</field>
+            <field name="company_id" eval="None"/>
+            <field name="customer" eval="False"/>
+            <field name="is_company" eval="True"/>
+            <field name="street">Espace de l'Europe 11</field>
+            <field name="city">Neuchâtel</field>
+            <field name="zip">2000</field>
+            <field name="phone"></field>
+            <field name="email">opensim@he-arc.ch</field>
+            <field name="website">https://www.he-arc.ch/gestion/ido</field>
+        </record>
+        <!-- Basic Company  -->
+        <record id="base.main_company" model="res.company">
+            <field name="name">HE-Arc</field>
+            <field name="partner_id" ref="base.main_partner"/>
+            <field name="logo" type="base64" file="opensim/static/img/ARC_RGB_Logo_transp.png"/>
+            <field name="currency_id" ref="base.CHF"/>
+        </record>
+        <!-- Updating our installed apps settings -->
+        <record model="res.config.settings" id="opensim.product_settings">
+            <field name="group_uom" eval="1"/>
+        </record>
+        <function model="res.config.settings" name="execute">
+            <!-- ids = -->
+            <value eval="[ref('opensim.product_settings')]"/>
+            <!-- context = -->
+            <value eval="{}"/>
+        </function>
+
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="opensim.list">
+            <field name="name">OdooSIM simulation list</field>
+            <field name="model">opensim.opensim</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="state"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="duration"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="opensim.action_window">
+            <field name="name">OdooSIM simulation window</field>
+            <field name="res_model">opensim.opensim</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- server action to the one above -->
+
+        <record model="ir.actions.server" id="opensim.action_stop">
+            <field name="name">stop simulations</field>
+            <field name="model_id" ref="model_opensim_opensim"/>
+            <field name="binding_model_id" ref="model_opensim_opensim"/>
+            <field name="state">code</field>
+            <field name="code">
+                model.stop_all()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="opensim.action_pause">
+            <field name="name">pause simulations</field>
+            <field name="model_id" ref="model_opensim_opensim"/>
+            <field name="binding_model_id" ref="model_opensim_opensim"/>
+            <field name="state">code</field>
+            <field name="code">
+                records.pause()
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="opensim.form_view">
+            <field name="name">opensim.form</field>
+            <field name="model">opensim.opensim</field>
+            <field name="arch" type="xml">
+                <form string="OdooSIM Form">
+                    <header>
+                        <button string="Start" type="object" name="start" states="ready" class="oe_highlight"/>
+                        <button string="Pause" type="object" name="pause" states="running" class="oe_highlight"/>
+                        <button string="Resume" type="object" name="resume" states="paused" class="oe_highlight"/>
+                        <button string="Stop" type="object" name="stop" states="running,paused"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="state"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="duration"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Top menu item -->
+        <menuitem name="OdooSIM" id="opensim.menu_root"/>
+        <!-- menu categories -->
+        <menuitem name="Simulations" id="opensim.menu_1" parent="opensim.menu_root"/>
+        <!-- actions -->
+        <menuitem name="List" id="opensim.menu_1_list" parent="opensim.menu_1"
+          action="opensim.action_window"/>
+        <menuitem name="Stop simulations" id="opensim.menu_stop" parent="opensim.menu_1"
+          action="opensim.action_stop"/>
+    </data>
+</odoo>
