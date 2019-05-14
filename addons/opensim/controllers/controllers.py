@@ -2,9 +2,9 @@
 from odoo import http, fields
 
 class Opensim(http.Controller):
-     @http.route('/opensim/opensim/', auth='public')
-     def index(self, **kw):
-         return "OdooSIM time is :{}".format(fields.Datetime.now())
+    @http.route('/opensim/opensim/', auth='public')
+    def index(self, **kw):
+        return "OdooSIM time is :{}".format(fields.Datetime.now())
 
 #     @http.route('/opensim/opensim/objects/', auth='public')
 #     def list(self, **kw):
