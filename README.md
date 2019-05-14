@@ -1,4 +1,4 @@
-# OdooSIM
+# OdooLOC
 # Getting started
 
 ## Prerequisities
@@ -7,7 +7,7 @@ Docker https://www.docker.com/get-started
 ## usage
 - clone the repository
 
-``git clone git@github.com:HEG-Arc/opensim.git``
+``git clone git@github.com:HEG-Arc/odooloc.git``
 
 - build and start
  
