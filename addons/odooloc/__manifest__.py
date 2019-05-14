@@ -16,6 +16,7 @@
     # for the full list
     'category': 'Test',
     'version': '0.1',
+    'application': True,
 
     # any module necessary for this one to work correctly
     'depends': ['purchase'],
@@ -23,7 +24,9 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'templates.xml',
+        # 'views/templates.xml',
+        'views/layout.xml',
+        'views/views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
