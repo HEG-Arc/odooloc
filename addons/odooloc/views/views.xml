@@ -1,0 +1,29 @@
+<odoo>
+    <record model="ir.ui.view" id="odooloc_form_view">
+            <field name="name">odooloc.form</field>
+            <field name="model">odooloc.odooloc</field>
+            <field name="arch" type="xml">
+                <form string="OdooLOC Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_list_odooloc">
+            <field name="name">OdooLOC window</field>
+            <field name="res_model">odooloc.odooloc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    <menuitem id="main_odooloc_menu" name="OdooLOC"/>
+
+    <menuitem id="odooloc_menu" name="OdooLOC" parent="main_odooloc_menu"/>
+
+    <menuitem id="test_menu" name="Test" parent="odooloc_menu" action="action_list_odooloc"/>
+</odoo>
