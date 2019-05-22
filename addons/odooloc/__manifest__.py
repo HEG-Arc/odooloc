@@ -19,7 +19,7 @@
     'application': True,
 
     # any module necessary for this one to work correctly
-    'depends': ['purchase'],
+    'depends': ['purchase', 'product', 'stock', 'base'],
 
     # always loaded
     'data': [
