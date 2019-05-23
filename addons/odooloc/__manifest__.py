@@ -30,6 +30,7 @@
         'views/views.xml',
         'data/product.category.csv',
         'data/res.partner.csv',
+        'data/product.template.csv'
     ],
     # only loaded in demonstration mode
     'demo': [
