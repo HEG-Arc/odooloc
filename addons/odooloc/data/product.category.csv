@@ -1,0 +1,10 @@
+id,name,parent_id/id
+odooloc.product_category_8_152e1b92,Rentable,
+
+odooloc.product_category_10_5f8f81be,Mixers,odooloc.product_category_8_152e1b92
+odooloc.product_category_11_4799a055,Players,odooloc.product_category_8_152e1b92
+odooloc.product_category_13_2a73e961,Amplifiers,odooloc.product_category_8_152e1b92
+odooloc.product_category_12_aba40bb3,Speakers,odooloc.product_category_8_152e1b92
+
+odooloc.product_category_17_j3hcks7j,Active speakers,odooloc.product_category_12_aba40bb3
+odooloc.product_category_18_ndd7j228,Passive speakers,odooloc.product_category_12_aba40bb3

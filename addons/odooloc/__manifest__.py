@@ -28,6 +28,7 @@
         # 'views/templates.xml',
         'views/layout.xml',
         'views/views.xml',
+        'data/product.category.csv',
     ],
     # only loaded in demonstration mode
     'demo': [
