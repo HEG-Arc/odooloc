@@ -12,4 +12,4 @@ class odooloc(models.Model):
 class MaintenanceEquipment(models.Model):
     _inherit = "maintenance.equipment"
 
-    odooloc_reference_product_id = fields.Many2one('reference.product', string='Reference product')
+    odooloc_reference_product_id = fields.Many2one('product.template', string='Reference product', domain="[('rental', '=', 1)]")

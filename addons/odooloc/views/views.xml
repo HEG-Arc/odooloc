@@ -1,12 +1,14 @@
 <odoo>
-    <record model="ir.ui.view" id="product.product_template_form_view">
-                <field name="name">product.template.common.form</field>
+    <record id="product.product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.common.form</field>
         <field name="model">product.template</field>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <form string="Product">
                 <header>
-                    <button string="Variant Prices" type="action" name="128" attrs="{'invisible': [('product_variant_count', '&lt;=', 1)]}" groups="product.group_product_variant"/>
+                    <button string="Variant Prices" type="action" name="128"
+                            attrs="{'invisible': [('product_variant_count', '&lt;=', 1)]}"
+                            groups="product.group_product_variant"/>
                 </header>
                 <sheet>
                     <field name="product_variant_count" invisible="1"/>
@@ -14,13 +16,16 @@
                     <field name="id" invisible="True"/>
                     <div class="oe_button_box" name="button_box">
                         <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
-                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                            <field name="active" widget="boolean_button"
+                                   options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
                         </button>
                     </div>
                     <field name="image_medium" widget="image" class="oe_avatar"/>
                     <div class="oe_title">
                         <label class="oe_edit_only" for="name" string="Product Name"/>
-                        <h1><field name="name" placeholder="Product Name"/></h1>
+                        <h1>
+                            <field name="name" placeholder="Product Name"/>
+                        </h1>
                         <div name="options" groups="base.group_user">
                             <div>
                                 <field name="sale_ok"/>
@@ -44,12 +49,17 @@
                                     <field name="categ_id" string="Category"/>
                                 </group>
                                 <group name="group_standard_price">
-                                    <field name="list_price" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"/>
-                                    <label for="standard_price" groups="base.group_user" attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"/>
-                                    <div name="standard_price_uom" groups="base.group_user" attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}">
-                                        <field name="standard_price" widget="monetary" options="{'currency_field': 'cost_currency_id', 'field_digits': True}"/>
+                                    <field name="list_price" widget="monetary"
+                                           options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                                    <label for="standard_price" groups="base.group_user"
+                                           attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"/>
+                                    <div name="standard_price_uom" groups="base.group_user"
+                                         attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}">
+                                        <field name="standard_price" widget="monetary"
+                                               options="{'currency_field': 'cost_currency_id', 'field_digits': True}"/>
                                     </div>
-                                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                    <field name="company_id" groups="base.group_multi_company"
+                                           options="{'no_create': True}"/>
                                     <field name="uom_id" groups="product.group_uom" options="{'no_create': True}"/>
                                     <field name="uom_po_id" groups="product.group_uom" options="{'no_create': True}"/>
                                     <field name="currency_id" invisible="1"/>
@@ -61,7 +71,8 @@
                         <page string="Sales" attrs="{'invisible':[('sale_ok','=',False)]}" name="sales">
                             <div name="pricelist_item" groups="product.group_product_pricelist">
                                 <separator string="Pricing"/>
-                                <field name="item_ids" nolabel="1" context="{'default_base':'list_price', 'default_applied_on' :'1_product'}">
+                                <field name="item_ids" nolabel="1"
+                                       context="{'default_base':'list_price', 'default_applied_on' :'1_product'}">
                                     <tree string="Pricelist Items" editable="bottom">
                                         <field name="pricelist_id" string="Pricelist" required="1"/>
                                         <field name="fixed_price" string="Price" required="1"/>
@@ -73,30 +84,111 @@
                                 </field>
                             </div>
                             <group name="sale">
-                                <group name="email_template_and_project" attrs="{'invisible':[('type', '!=', 'service')]}"/>
+                                <group name="email_template_and_project"
+                                       attrs="{'invisible':[('type', '!=', 'service')]}"/>
                             </group>
                         </page>
-                        <page string="Inventory" name="inventory" groups="stock.group_stock_user,product.group_stock_packaging" attrs="{'invisible':[('type', '=', 'service')]}">
-                            <group name="packaging" string="Packaging" colspan="4" attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}" groups="product.group_stock_packaging">
-                                <field name="packaging_ids" nolabel="1" context="{'default_product_id': product_variant_id,'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"/>
+                        <page string="Inventory" name="inventory"
+                              groups="stock.group_stock_user,product.group_stock_packaging"
+                              attrs="{'invisible':[('type', '=', 'service')]}">
+                            <group name="packaging" string="Packaging" colspan="4"
+                                   attrs="{'invisible':['|', ('type', 'not in', ['product', 'consu']), ('product_variant_count', '&gt;', 1)]}"
+                                   groups="product.group_stock_packaging">
+                                <field name="packaging_ids" nolabel="1"
+                                       context="{'default_product_id': product_variant_id,'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"/>
                             </group>
                         </page>
                         <page string="Notes" name="notes">
                             <group name="description_internal">
                                 <group string="Description for Internal">
-                                    <field name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
+                                    <field name="description" nolabel="1"
+                                           placeholder="This note is only for internal purposes."/>
                                 </group>
                             </group>
                             <group name="description">
-                                <group string="Description for Customers" attrs="{'invisible': [('sale_ok','=',False)]}">
-                                    <field name="description_sale" nolabel="1" placeholder="This note will show up on sales orders."/>
+                                <group string="Description for Customers"
+                                       attrs="{'invisible': [('sale_ok','=',False)]}">
+                                    <field name="description_sale" nolabel="1"
+                                           placeholder="This note will show up on sales orders."/>
                                 </group>
                             </group>
                             <group name="warning">
                                 <group name="sale_warning"/>
                                 <group name="purchase_warning"/>
                             </group>
-                         </page>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="maintenance.hr_equipment_view_form" model="ir.ui.view">
+        <field name="name">equipment.form</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="arch" type="xml">
+            <form string="Equipments">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="115" type="action" class="oe_stat_button" icon="fa-ticket">
+                            <field string="Maintenance" name="maintenance_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" string="Name" placeholder="Equipment Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="category_id" options="{&quot;no_open&quot;: True}"/>
+                            <field name="owner_user_id" string="Owner"/>
+                        </group>
+                        <group>
+                            <field name="maintenance_team_id" attrs="{'required': [('period', '!=', 0)]}"/>
+                            <field name="technician_user_id"/>
+                            <field name="assign_date" groups="base.group_no_one"/>
+                            <field name="scrap_date" groups="base.group_no_one"/>
+                            <field name="location" string="Used in location"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="note"/>
+                        </page>
+                        <page string="Product Information">
+                            <group>
+                                <group>
+                                    <field name="partner_id" context="{'default_supplier': True, 'default_customer': False}"/>
+                                    <field name="partner_ref"/>
+                                    <field name="model"/>
+                                    <field name="serial_no"/>
+                                </group><group>
+                                    <field name="cost" groups="maintenance.group_equipment_manager"/>
+                                    <field name="warranty"/>
+                                    <field name="odooloc_reference_product_id"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Maintenance">
+                            <group>
+                                <group name="maintenance">
+                                    <field name="next_action_date" class="oe_read_only" string="Next Preventive Maintenance"/>
+                                    <label for="period" string="Preventive Maintenance Frequency"/>
+                                    <div class="o_row">
+                                        <field name="period"/> days
+                                    </div>
+                                    <label for="maintenance_duration" string="Maintenance Duration"/>
+                                    <div class="o_row">
+                                        <field name="maintenance_duration"/> hours
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
