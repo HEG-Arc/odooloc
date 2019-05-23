@@ -1,0 +1,5 @@
+id,company_id/id,is_company,customer,supplier,name,country_id/id,commercial_partner_country_id/id
+
+odooloc.res_partner_22_e500be0b,base.main_company,True,False,True,thomann,base.de,base.de
+odooloc.res_partner_23_6a8c24a1,base.main_company,True,False,True,SonoVente,base.fr,base.fr
+odooloc.res_partner_21_6d5e4d2f,base.main_company,True,False,True,Digitec,base.ch,base.ch
