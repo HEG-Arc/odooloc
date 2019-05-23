@@ -19,7 +19,8 @@
     'application': True,
 
     # any module necessary for this one to work correctly
-    'depends': ['purchase', 'product', 'stock', 'base'],
+    'depends': ['base','sale_management','purchase','stock','sale_stock','mrp','mail','account_invoicing', 'purchase','maintenance','board',
+                'account_chart_template_multicompany', 'l10n_ch', 'account_accountant_cbc','account_report_cbc'],
 
     # always loaded
     'data': [

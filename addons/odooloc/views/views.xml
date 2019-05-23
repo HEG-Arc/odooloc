@@ -123,16 +123,33 @@
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="action_list_odooloc">
-        <field name="name">OdooLOC window</field>
-        <field name="res_model">odooloc.odooloc</field>
+    <record model="ir.actions.act_window" id="odooloc_warehouses">
+        <field name="name">Warehouses</field>
+        <field name="res_model">stock.warehouse</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="odooloc_products">
+        <field name="name">Products</field>
+        <field name="res_model">product.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="odooloc_equipments">
+        <field name="name">Equipments</field>
+        <field name="res_model">maintenance.equipment</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <menuitem id="main_odooloc_menu" name="OdooLOC"/>
 
-    <menuitem id="odooloc_menu" name="OdooLOC" parent="main_odooloc_menu"/>
+    <menuitem id="menu_inventory" name="Inventory" parent="main_odooloc_menu"/>
+    <menuitem id="menu_inventory_warehouses" name="Warehouses" parent="menu_inventory" action="odooloc_warehouses"/>
 
-    <menuitem id="test_menu" name="Test" parent="odooloc_menu" action="action_list_odooloc"/>
+    <menuitem id="menu_products" name="Products" parent="main_odooloc_menu"/>
+    <menuitem id="menu_products_products" name="Products" parent="menu_products" action="odooloc_products"/>
+    <menuitem id="menu_products_equipments" name="Equipments" parent="menu_products" action="odooloc_equipments"/>
 </odoo>
