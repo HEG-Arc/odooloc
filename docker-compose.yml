@@ -17,7 +17,7 @@ services:
     ports:
      - "8069:8069"
     tty: true
-    command: -d odoo --dev=reload --without-demo=all --addons-path=/opt/odoo/community_addons,/mnt/extra-addons -i opensim
+    command: -d odoo --dev=reload --without-demo=all --addons-path=/opt/odoo/community_addons,/mnt/extra-addons -i odooloc
 
     environment:
      - POSTGRES_PASSWORD=odoo
