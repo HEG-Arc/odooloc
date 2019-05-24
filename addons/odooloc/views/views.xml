@@ -1,4 +1,15 @@
 <odoo>
+    <record model="res.config.settings" id="odooloc.locations_settings">
+        <field name="group_stock_multi_locations" eval="True"/>
+    </record>
+
+    <function model="res.config.settings" name="execute">
+        <!-- ids = -->
+        <value eval="[ref('odooloc.locations_settings')]"/>
+        <!-- context = -->
+        <value eval="{}"/>
+    </function>
+
     <record id="product.product_template_form_view" model="ir.ui.view">
         <field name="name">product.template.common.form</field>
         <field name="model">product.template</field>
@@ -141,7 +152,9 @@
                     </div>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
-                        <h1><field name="name" string="Name" placeholder="Equipment Name"/></h1>
+                        <h1>
+                            <field name="name" string="Name" placeholder="Equipment Name"/>
+                        </h1>
                     </div>
                     <group>
                         <group>
@@ -163,11 +176,13 @@
                         <page string="Product Information">
                             <group>
                                 <group>
-                                    <field name="partner_id" context="{'default_supplier': True, 'default_customer': False}"/>
+                                    <field name="partner_id"
+                                           context="{'default_supplier': True, 'default_customer': False}"/>
                                     <field name="partner_ref"/>
                                     <field name="model"/>
                                     <field name="serial_no"/>
-                                </group><group>
+                                </group>
+                                <group>
                                     <field name="cost" groups="maintenance.group_equipment_manager"/>
                                     <field name="warranty"/>
                                     <field name="odooloc_reference_product_id"/>
@@ -177,14 +192,17 @@
                         <page string="Maintenance">
                             <group>
                                 <group name="maintenance">
-                                    <field name="next_action_date" class="oe_read_only" string="Next Preventive Maintenance"/>
+                                    <field name="next_action_date" class="oe_read_only"
+                                           string="Next Preventive Maintenance"/>
                                     <label for="period" string="Preventive Maintenance Frequency"/>
                                     <div class="o_row">
-                                        <field name="period"/> days
+                                        <field name="period"/>
+                                        days
                                     </div>
                                     <label for="maintenance_duration" string="Maintenance Duration"/>
                                     <div class="o_row">
-                                        <field name="maintenance_duration"/> hours
+                                        <field name="maintenance_duration"/>
+                                        hours
                                     </div>
                                 </group>
                             </group>
