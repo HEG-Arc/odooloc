@@ -12,6 +12,19 @@
     </function>
 
 
+    <!--    Enable traceability for products-->
+    <record model="res.config.settings" id="odooloc.traceability_settings">
+        <field name="group_stock_production_lot" eval="True"/>
+    </record>
+
+    <function model="res.config.settings" name="execute">
+        <!-- ids = -->
+        <value eval="[ref('odooloc.traceability_settings')]"/>
+        <!-- context = -->
+        <value eval="{}"/>
+    </function>
+
+
     <!--    Add rental checkbox to product view-->
     <record id="view_product_form_inherit" model="ir.ui.view">
         <field name="name">product.template.common.form.inherit</field>
