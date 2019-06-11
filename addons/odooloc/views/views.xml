@@ -12,7 +12,7 @@
     </function>
 
 
-<!--    Add rental checkbox to product view-->
+    <!--    Add rental checkbox to product view-->
     <record id="view_product_form_inherit" model="ir.ui.view">
         <field name="name">product.template.common.form.inherit</field>
         <field name="model">product.template</field>
@@ -27,7 +27,8 @@
         </field>
     </record>
 
-<!--    Add custom field to link a rentable product to an equipment-->
+
+    <!--    Add custom field to link a rentable product to an equipment-->
     <record id="hr_equipment_view_form_inherit" model="ir.ui.view">
         <field name="name">equipment.form.inherit</field>
         <field name="model">maintenance.equipment</field>
@@ -40,6 +41,7 @@
     </record>
 
 
+    <!-- Insert the navigation menu -->
     <record model="ir.actions.act_window" id="odooloc_warehouses">
         <field name="name">Warehouses</field>
         <field name="res_model">stock.warehouse</field>
@@ -61,6 +63,13 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="odooloc_purchases">
+        <field name="name">Purchases</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <menuitem id="main_odooloc_menu" name="OdooLOC"/>
 
     <menuitem id="menu_inventory" name="Inventory" parent="main_odooloc_menu"/>
@@ -69,4 +78,8 @@
     <menuitem id="menu_products" name="Products" parent="main_odooloc_menu"/>
     <menuitem id="menu_products_products" name="Products" parent="menu_products" action="odooloc_products"/>
     <menuitem id="menu_products_equipments" name="Equipments" parent="menu_products" action="odooloc_equipments"/>
+
+    <menuitem id="menu_purchases" name="Purchases" parent="main_odooloc_menu"/>
+    <menuitem id="menu_purchases_orders" name="Purchase orders" parent="menu_purchases" action="odooloc_purchases"/>
+    <menuitem id="menu_purchases_equipments" name="Equipments creation" parent="menu_purchases" action="odooloc_equipments_creation"/>
 </odoo>
