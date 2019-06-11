@@ -59,6 +59,13 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="odooloc_locations">
+        <field name="name">Locations</field>
+        <field name="res_model">stock.location</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <record model="ir.actions.act_window" id="odooloc_products">
         <field name="name">Products</field>
         <field name="res_model">product.template</field>
@@ -84,6 +91,7 @@
 
     <menuitem id="menu_inventory" name="Inventory" parent="main_odooloc_menu"/>
     <menuitem id="menu_inventory_warehouses" name="Warehouses" parent="menu_inventory" action="odooloc_warehouses"/>
+    <menuitem id="menu_inventory_locations" name="Locations" parent="menu_inventory" action="odooloc_locations"/>
 
     <menuitem id="menu_products" name="Products" parent="main_odooloc_menu"/>
     <menuitem id="menu_products_products" name="Products" parent="menu_products" action="odooloc_products"/>
