@@ -32,7 +32,8 @@
         'data/res.partner.csv',
         'data/product.template.csv',
         'data/stock.warehouse.csv',
-        'data/stock.location.csv'
+        'data/stock.location.csv',
+        'data/stock.production.lot.csv'
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -112,5 +112,4 @@
 
     <menuitem id="menu_purchases" name="Purchases" parent="main_odooloc_menu"/>
     <menuitem id="menu_purchases_orders" name="Purchase orders" parent="menu_purchases" action="odooloc_purchases"/>
-    <menuitem id="menu_purchases_equipments" name="Equipments creation" parent="menu_purchases" action="odooloc_equipments_creation"/>
 </odoo>
