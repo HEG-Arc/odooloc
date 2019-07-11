@@ -1,8 +1,0 @@
-id,company_id/id,is_company,customer,supplier,name,country_id/id,commercial_partner_country_id/id
-opensim.res_partner_22_e500be0b,base.main_company,True,False,True,Ethiopia Coffee Company,base.et,base.et
-opensim.res_partner_23_6a8c24a1,base.main_company,True,False,True,The Bag Company,base.it,base.it
-opensim.res_partner_21_6d5e4d2f,base.main_company,True,False,True,Yemeni Coffee Company,base.ye,base.ye
-opensim.res_partner_A,base.main_company,True,False,False,A,base.ch,base.ch
-opensim.res_partner_B,base.main_company,True,False,False,B,base.ch,base.ch
-opensim.res_partner_customer1,base.main_company,True,True,False,Coffee Shop,base.ch,base.ch
-opensim.res_partner_marketing,base.main_company,True,False,True,Giant Advertising Corp,base.it,base.it

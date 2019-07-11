@@ -1,4 +1,0 @@
-id,partner_id/id,parent_id/id,name,country_id/id,currency_id/id
-opensim.res_company_A,opensim.res_partner_A,base.main_company,A,base.ch,base.CHF
-opensim.res_company_B,opensim.res_partner_B,base.main_company,B,base.ch,base.CHF
-

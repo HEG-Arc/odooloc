@@ -1,4 +1,0 @@
-id,company_ids/id,company_id/id,email,employee,login,password,name
-base.user_root,"base.main_company,opensim.res_company_A,opensim.res_company_B",base.main_company,bernard.letourmy@he-arc.ch,False,admin,admin,Default Administrator
-opensim.user_a1,opensim.res_company_A,opensim.res_company_A,"a1@odoosim.ch",True,a1,changeme,A Player 1
-opensim.user_b1,opensim.res_company_B,opensim.res_company_B,"b1@odoosim.ch",True,b1,changeme,B Player 1
