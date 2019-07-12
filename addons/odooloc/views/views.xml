@@ -53,30 +53,72 @@
         </field>
     </record>
 
-    <!--    Create view to show rental orders-->
+    <!--    Create rental orders form-->
     <record id="odooloc_rental_orders_form" model="ir.ui.view">
-        <field name="name">odooloc.rental.form</field>
-        <field name="model">odooloc.rental</field>
-            <field name="arch" type="xml">
-                <form string="Rental Order">
-                    <header></header>
-                    <sheet>
-                <div class="oe_title">
-                    <h1>
-                        <field name="name" readonly="1"/>
-                    </h1>
-                </div>
-                <field name="customer_id"/>
-                <field name="date_begin"/>
-                <field name="date_end"/>
-                    </sheet>
+        <field name="name">odooloc.order.form</field>
+        <field name="model">odooloc.order</field>
+        <field name="arch" type="xml">
+            <form string="Rental Order">
+                <header>
+                    <button name="button_confirm" type="object" states="sent" string="Confirm Order"
+                            class="oe_highlight" id="bid_confirm"/>
+
+                    <button name="button_cancel" states="cancel" string="Set to Draft" type="object"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label" attrs="{'invisible': [('state','in',('draft','sent'))]}">
+                            Rental order
+                        </span>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="customer_id" domain="[('customer','=',True)]"
+                                   context="{'search_default_customer':1, 'show_address': 1, 'show_vat': True}"
+                                   options='{"always_reload": True}'/>
+                        </group>
+                        <group>
+                            <field name="date_start" options='{"always_reload": True}'/>
+                            <field name="date_end" options='{"always_reload": True}'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Order Lines" name="order_lines">
+
+                        </page>
+                        <page string="Picking" name="picking_information">
+                            <group>
+                                <group>
+                                    <field name="date_out" options='{"always_reload": True}'/>
+                                    <field name="date_in" options='{"always_reload": True}'/>
+                                </group>
+                                <group>
+                                    <field name="pick_method" options='{"always_reload": True}' string="Picking method"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="More info">
+                            <group string="Event details">
+                                <field name="event_name" string="Name"/>
+                                <field name="event_adress" string="Adress"/>
+                                <field name="event_zip" string="ZIP"/>
+                                <field name="event_city" string="City"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
         </field>
     </record>
 
     <record model="ir.actions.act_window" id="odooloc_rental_orders">
         <field name="name">Rental orders</field>
-        <field name="res_model">odooloc.rental</field>
+        <field name="res_model">odooloc.order</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
@@ -129,7 +171,8 @@
 
     <menuitem id="main_odooloc_menu" name="OdooLOC"/>
 
-    <menuitem id="menu_rental" name="Rental orders" parent="main_odooloc_menu" action="odooloc_rental_orders" sequence="1"/>
+    <menuitem id="menu_rental" name="Rental orders" parent="main_odooloc_menu" action="odooloc_rental_orders"
+              sequence="1"/>
 
     <menuitem id="menu_inventory" name="Inventory" parent="main_odooloc_menu"/>
     <menuitem id="menu_inventory_warehouses" name="Warehouses" parent="menu_inventory" action="odooloc_warehouses"/>

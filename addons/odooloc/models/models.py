@@ -4,9 +4,9 @@ from odoo import models, fields, api
 
 
 class odooloc(models.Model):
-    _name = 'odooloc.rental'
+    _name = 'odooloc.order'
     # _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = "Rental"
+    _description = "Rental order"
     _order = "name"
 
     name = fields.Char('Rental Reference', required=True, index=True, copy=False, default='New')
@@ -14,14 +14,42 @@ class odooloc(models.Model):
                               help='Gives the sequence order when displaying a rental order list')
     customer_id = fields.Many2one('res.partner', 'Customer', required=True, domain="[('customer', '=', 'true')]")
     barcode_id = fields.Many2one('res.partner', 'Customer', domain="[('customer', '=', 'true')]")
-    date_begin = fields.Datetime('Beginning date', required=True, index=True, copy=False, default=fields.Datetime.now)
-    date_end = fields.Datetime('Ending date', required=True, index=True, copy=False, default=fields.Datetime.now)
+    date_start = fields.Datetime('Start date', required=True, index=True, copy=False, default=fields.Datetime.now)
+    date_end = fields.Datetime('End date', required=True, index=True, copy=False, default=fields.Datetime.now)
+    date_out = fields.Datetime('Picking OUT date', required=True, index=True, copy=False, default=fields.Datetime.now)
+    date_in = fields.Datetime('Picking IN date', required=True, index=True, copy=False, default=fields.Datetime.now)
+    event_name = fields.Char('Event name')
+    event_adress = fields.Char('Event adress')
+    event_zip = fields.Char('Event ZIP')
+    event_city = fields.Char('Event city')
+    pick_method = fields.Selection([
+        ('company', 'Delivered by company'),
+        ('self', 'Self-service')
+    ], required=True, index=True, copy=False, default='self')
+    pick_method = fields.Selection([
+        ('company', 'Assembly by company'),
+        ('self', 'Assembly by customer')
+    ], required=True, index=True, copy=False, default='self')
+
+    state = fields.Selection([
+        ('draft', 'Create order'),
+        ('sent', 'Confirmed'),
+        ('cancel', 'Canceled')
+    ], string='Status', readonly=True, index=True, copy=False, default='draft', track_visibility='onchange')
 
     @api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code('odooloc.rental') or '/'
+            vals['name'] = self.env['ir.sequence'].next_by_code('odooloc.order') or '/'
         return super(odooloc, self).create(vals)
+
+    @api.multi
+    def button_sent(self):
+        return self.write({'state': 'sent'})
+
+    @api.multi
+    def button_cancel(self):
+        return self.write({'state': 'cancel'})
 
 
 class MaintenanceEquipment(models.Model):
