@@ -99,6 +99,7 @@
                                 </group>
                                 <group>
                                     <field name="pick_method" options='{"always_reload": True}' string="Picking method"/>
+                                    <field name="assembly_method" options='{"always_reload": True}' string="Assembly method"/>
                                 </group>
                             </group>
                         </page>

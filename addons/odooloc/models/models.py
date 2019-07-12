@@ -26,7 +26,7 @@ class odooloc(models.Model):
         ('company', 'Delivered by company'),
         ('self', 'Self-service')
     ], required=True, index=True, copy=False, default='self')
-    pick_method = fields.Selection([
+    assembly_method = fields.Selection([
         ('company', 'Assembly by company'),
         ('self', 'Assembly by customer')
     ], required=True, index=True, copy=False, default='self')
