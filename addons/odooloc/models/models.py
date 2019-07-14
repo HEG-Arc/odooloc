@@ -22,6 +22,7 @@ class odooloc(models.Model):
     event_adress = fields.Char('Event adress')
     event_zip = fields.Char('Event ZIP')
     event_city = fields.Char('Event city')
+    comment = fields.Char('Comments')
     pick_method = fields.Selection([
         ('company', 'Delivered by company'),
         ('self', 'Self-service')
@@ -32,8 +33,8 @@ class odooloc(models.Model):
     ], required=True, index=True, copy=False, default='self')
 
     state = fields.Selection([
-        ('draft', 'Create order'),
-        ('sent', 'Confirmed'),
+        ('draft', 'New order'),
+        ('confirm', 'Confirmed'),
         ('cancel', 'Canceled')
     ], string='Status', readonly=True, index=True, copy=False, default='draft', track_visibility='onchange')
 
@@ -44,11 +45,11 @@ class odooloc(models.Model):
         return super(odooloc, self).create(vals)
 
     @api.multi
-    def button_sent(self):
-        return self.write({'state': 'sent'})
+    def action_confirm_order(self):
+        return self.write({'state': 'confirm'})
 
     @api.multi
-    def button_cancel(self):
+    def action_cancel_order(self):
         return self.write({'state': 'cancel'})
 
 
