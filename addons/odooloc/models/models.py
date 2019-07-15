@@ -46,7 +46,8 @@ class odooloc(models.Model):
 
     @api.multi
     def action_confirm_order(self):
-        return self.write({'state': 'confirm'})
+        self.write({'state': 'confirm'})
+        return True
 
     @api.multi
     def action_cancel_order(self):

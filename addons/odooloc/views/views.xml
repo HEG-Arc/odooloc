@@ -131,7 +131,7 @@
             <field name="name">odooloc.order.tree</field>
             <field name="model">odooloc.order</field>
             <field name="arch" type="xml">
-                <tree decoration-muted="state=='cancel'" decoration-info="state in ('confirmed')" string="Rental Order">
+                <tree decoration-muted="state=='cancel'" decoration-info="state in ('confirmed')" default_order='name desc' string="Rental Order">
                     <field name="name" string="Reference"/>
                     <field name="customer_id"/>
                     <field name="date_start"/>
