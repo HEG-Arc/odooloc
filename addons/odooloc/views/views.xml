@@ -127,6 +127,20 @@
         </field>
     </record>
 
+     <record id="odooloc_rental_order_tree" model="ir.ui.view">
+            <field name="name">odooloc.order.tree</field>
+            <field name="model">odooloc.order</field>
+            <field name="arch" type="xml">
+                <tree decoration-muted="state=='cancel'" decoration-info="state in ('confirmed')" string="Rental Order">
+                    <field name="name" string="Reference"/>
+                    <field name="customer_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
     <record model="ir.actions.act_window" id="odooloc_rental_orders">
         <field name="name">Rental orders</field>
         <field name="res_model">odooloc.order</field>

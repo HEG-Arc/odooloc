@@ -33,7 +33,7 @@ class odooloc(models.Model):
     ], required=True, index=True, copy=False, default='self')
 
     state = fields.Selection([
-        ('draft', 'New order'),
+        ('draft', 'Draft'),
         ('confirm', 'Confirmed'),
         ('cancel', 'Canceled')
     ], string='Status', readonly=True, index=True, copy=False, default='draft', track_visibility='onchange')
