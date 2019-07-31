@@ -1,2 +1,2 @@
-"id","name","number_next","prefix","code","padding","number_increment"
-"odooloc.ir_sequence_32_93b18d52","Rental Order","1","RENT","odooloc.order","5","1"
+"id","name","prefix","code","padding","number_increment"
+"odooloc.ir_sequence_32_93b18d52","Rental Order","RENT","odooloc.order","5","1"

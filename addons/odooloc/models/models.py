@@ -7,7 +7,7 @@ class odooloc(models.Model):
     _name = 'odooloc.order'
     # _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Rental order"
-    _order = "name"
+    _order = 'name desc'
 
     name = fields.Char('Rental Reference', required=True, index=True, copy=False, default='New')
     sequence = fields.Integer('Sequence', default=1,
@@ -52,6 +52,18 @@ class odooloc(models.Model):
     @api.multi
     def action_cancel_order(self):
         return self.write({'state': 'cancel'})
+
+
+class odooloc(models.Model):
+    _name = 'odooloc.order.line'
+    # _inherit = ['mail.thread', 'mail.activity.mixin']
+    _description = "Rental order line"
+    _order = 'order_id desc, name desc'
+
+    order_id = fields.Many2one('odooloc.rental', 'id', required=True, ondelete='cascade')
+    name = fields.Char('Rental Order Line Reference', required=True, index=True, copy=False, default='New')
+    sequence = fields.Integer(string='Sequence', default=10)
+
 
 
 class MaintenanceEquipment(models.Model):

@@ -4,7 +4,7 @@ FROM odoo:11.0
 USER root
 # address missing phonenumbers requirement in odoo11.0 image
 # INFO odoo odoo.addons.sms.wizard.send_sms: The `phonenumbers` Python module is not available. Phone number validation will be skipped.
-RUN pip3 install phonenumbers
+RUN pip3 install phonenumbers viivakoodi
 
 # install git to allow  retrieving extra addons from source
 RUN apt-get -y update && apt-get -y install git
