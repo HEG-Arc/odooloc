@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from odoo import models, fields, api
 
 
-class odooloc(models.Model):
+class odoolocOrder(models.Model):
     _name = 'odooloc.order'
     # _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Rental order"
@@ -38,11 +38,14 @@ class odooloc(models.Model):
         ('cancel', 'Canceled')
     ], string='Status', readonly=True, index=True, copy=False, default='draft', track_visibility='onchange')
 
+    order_line = fields.One2many('odooloc.order.line', 'order_id', string='Order Lines',
+                                 states={'cancel': [('readonly', True)], 'confirm': [('readonly', True)]}, copy=True)
+
     @api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
             vals['name'] = self.env['ir.sequence'].next_by_code('odooloc.order') or '/'
-        return super(odooloc, self).create(vals)
+        return super(odoolocOrder, self).create(vals)
 
     @api.multi
     def action_confirm_order(self):
@@ -54,16 +57,20 @@ class odooloc(models.Model):
         return self.write({'state': 'cancel'})
 
 
-class odooloc(models.Model):
+class odoolocOrderLine(models.Model):
     _name = 'odooloc.order.line'
     # _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Rental order line"
     _order = 'order_id desc, name desc'
 
-    order_id = fields.Many2one('odooloc.rental', 'id', required=True, ondelete='cascade')
     name = fields.Char('Rental Order Line Reference', required=True, index=True, copy=False, default='New')
     sequence = fields.Integer(string='Sequence', default=10)
 
+    product_id = fields.Many2one('product.product', string='Product', domain=[('rental', '=', True)],
+                                 change_default=True, required=True)
+
+    order_id = fields.Many2one('odooloc.order', string='Order Reference', index=True, required=True,
+                               ondelete='cascade')
 
 
 class MaintenanceEquipment(models.Model):

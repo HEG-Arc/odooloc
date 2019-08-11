@@ -90,7 +90,13 @@
                     </group>
                     <notebook>
                         <page string="Order Lines" name="order_lines">
-
+                            <field name="order_line" attrs="{'readonly': [('state', 'in', ('confirm', 'cancel'))]}">
+                                <tree string="Purchase Order Lines" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"
+                                           force_save="1"/>
+                                </tree>
+                            </field>
                         </page>
                         <page string="Picking" name="picking_information">
                             <group>
@@ -135,8 +141,8 @@
                   string="Rental Order">
                 <field name="name" string="Reference"/>
                 <field name="customer_id"/>
-                <field name="date_start"/>
-                <field name="date_end"/>
+                <field name="date_out"/>
+                <field name="date_in"/>
                 <field name="state"/>
             </tree>
         </field>
