@@ -25,17 +25,28 @@
     </function>
 
 
-    <!--    Add rental checkbox to product view-->
+    <!--    Add useful fields to product form view-->
     <record id="view_product_form_inherit" model="ir.ui.view">
         <field name="name">product.template.common.form.inherit</field>
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
+            <!--    Add rental checkbox to product view-->
             <xpath expr="//field[@name='purchase_ok']/following-sibling::label[1]" position="after">
                 <div>
                     <field name="rental"/>
                     <label for="rental"/>
                 </div>
+            </xpath>
+            <!--    Add field for rental price-->
+            <xpath expr="//page[@name='sales']" position="after">
+                <page string="Rentals" name="rentals">
+                    <group>
+                        <group name="group_rental_price">
+                            <field name="rental_price"/>
+                        </group>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>
