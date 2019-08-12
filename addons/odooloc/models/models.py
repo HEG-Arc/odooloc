@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
+from odoo.addons import decimal_precision as dp
 from odoo import models, fields, api
 
 
@@ -78,3 +79,9 @@ class MaintenanceEquipment(models.Model):
 
     odooloc_reference_product_id = fields.Many2one('stock.production.lot', string='Reference product',
                                                    domain="[('name', '>', 0)]")
+
+
+# Adding rental price for rentable products
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+    rental_price = fields.Float('Price', digits=dp.get_precision('Rental Price'), domain=[('rental', '=', True)])
