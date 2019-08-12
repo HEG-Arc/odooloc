@@ -84,4 +84,4 @@ class MaintenanceEquipment(models.Model):
 # Adding rental price for rentable products
 class ProductTemplate(models.Model):
     _inherit = "product.template"
-    rental_price = fields.Float('Price', digits=dp.get_precision('Rental Price'), domain=[('rental', '=', True)])
+    rental_price = fields.Float('Rental price per day', digits=dp.get_precision('Rental Price'), domain=[('rental', '=', True)])
