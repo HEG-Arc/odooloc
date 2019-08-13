@@ -10,6 +10,11 @@ class odoolocOrder(models.Model):
     _description = "Rental order"
     _order = 'name desc'
 
+    READONLY_STATES = {
+        'confirm': [('readonly', True)],
+        'cancel': [('readonly', True)],
+    }
+
     name = fields.Char('Rental Reference', required=True, index=True, copy=False, default='New')
     sequence = fields.Integer('Sequence', default=1,
                               help='Gives the sequence order when displaying a rental order list')
@@ -39,6 +44,12 @@ class odoolocOrder(models.Model):
         ('cancel', 'Canceled')
     ], string='Status', readonly=True, index=True, copy=False, default='draft', track_visibility='onchange')
 
+    customer_id = fields.Many2one('res.partner', string='Vendor', required=True, states=READONLY_STATES,
+                                 change_default=True, track_visibility='always')
+
+    currency_id = fields.Many2one('res.currency', 'Currency', required=True, states=READONLY_STATES, \
+                                  default=lambda self: self.env.user.company_id.currency_id.id)
+
     order_line = fields.One2many('odooloc.order.line', 'order_id', string='Order Lines',
                                  states={'cancel': [('readonly', True)], 'confirm': [('readonly', True)]}, copy=True)
 
@@ -64,14 +75,37 @@ class odoolocOrderLine(models.Model):
     _description = "Rental order line"
     _order = 'order_id desc, name desc'
 
-    name = fields.Char('Rental Order Line Reference', required=True, index=True, copy=False, default='New')
+    @api.depends('product_qty', 'product_rental_price', 'taxes_id')
+    def _compute_amount(self):
+        for line in self:
+            taxes = line.taxes_id.compute_all(line.product_rental_price, line.order_id.currency_id, line.product_qty,
+                                              product=line.product_id, partner=line.order_id.customer_id)
+            line.update({
+                'price_tax': sum(t.get('amount', 0.0) for t in taxes.get('taxes', [])),
+                'price_total': taxes['total_included'],
+                'price_subtotal': taxes['total_excluded'],
+            })
+
+    name = fields.Text(string='Description') #TODO make it required
     sequence = fields.Integer(string='Sequence', default=10)
     product_qty = fields.Integer(string='Quantity', default=1)
+    taxes_id = fields.Many2many('account.tax', string='Taxes',
+                                domain=['|', ('active', '=', False), ('active', '=', True)])
     product_id = fields.Many2one('product.product', string='Product', domain=[('rental', '=', True)],
                                  change_default=True, required=True)
-    product_rental_price = fields.Float(string='Unit price per day', required=True, digits=dp.get_precision('Rental price'), domain=[('rental'), '=', True])
+
+    product_rental_price = fields.Float(string='Unit price per day', required=True,
+                                        digits=dp.get_precision('Rental price'), domain=[('rental'), '=', True])
+    price_subtotal = fields.Monetary(compute='_compute_amount', string='Subtotal', store=True)
+    price_total = fields.Monetary(compute='_compute_amount', string='Total', store=True)
+    price_tax = fields.Float(compute='_compute_amount', string='Tax', store=True)
+
     order_id = fields.Many2one('odooloc.order', string='Order Reference', index=True, required=True,
                                ondelete='cascade')
+
+    customer_id = fields.Many2one('res.partner', related='order_id.customer_id', string='Customer', readonly=True,
+                                 store=True)
+    currency_id = fields.Many2one(related='order_id.currency_id', store=True, string='Currency', readonly=True)
 
 
 class MaintenanceEquipment(models.Model):
@@ -84,4 +118,5 @@ class MaintenanceEquipment(models.Model):
 # Adding product rental price for rentable products
 class ProductTemplate(models.Model):
     _inherit = "product.template"
-    product_rental_price = fields.Float('Unit price per day', digits=dp.get_precision('Rental Price'), domain=[('rental', '=', True)])
+    product_rental_price = fields.Float('Unit price per day', digits=dp.get_precision('Rental Price'),
+                                        domain=[('rental', '=', True)])
