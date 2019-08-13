@@ -66,10 +66,10 @@ class odoolocOrderLine(models.Model):
 
     name = fields.Char('Rental Order Line Reference', required=True, index=True, copy=False, default='New')
     sequence = fields.Integer(string='Sequence', default=10)
-
+    product_qty = fields.Integer(string='Quantity', default=1)
     product_id = fields.Many2one('product.product', string='Product', domain=[('rental', '=', True)],
                                  change_default=True, required=True)
-
+    product_rental_price = fields.Float(string='Unit price per day', required=True, digits=dp.get_precision('Rental price'), domain=[('rental'), '=', True])
     order_id = fields.Many2one('odooloc.order', string='Order Reference', index=True, required=True,
                                ondelete='cascade')
 
@@ -81,7 +81,7 @@ class MaintenanceEquipment(models.Model):
                                                    domain="[('name', '>', 0)]")
 
 
-# Adding rental price for rentable products
+# Adding product rental price for rentable products
 class ProductTemplate(models.Model):
     _inherit = "product.template"
-    rental_price = fields.Float('Rental price per day', digits=dp.get_precision('Rental Price'), domain=[('rental', '=', True)])
+    product_rental_price = fields.Float('Unit price per day', digits=dp.get_precision('Rental Price'), domain=[('rental', '=', True)])
