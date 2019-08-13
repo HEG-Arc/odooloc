@@ -38,12 +38,12 @@
                     <label for="rental"/>
                 </div>
             </xpath>
-            <!--    Add field for rental price-->
+            <!--    Add field for product rental price-->
             <xpath expr="//page[@name='sales']" position="after">
                 <page string="Rentals" name="rentals">
                     <group>
-                        <group name="group_rental_price">
-                            <field name="rental_price"/>
+                        <group name="group_product_rental_price">
+                            <field name="product_rental_price"/>
                         </group>
                     </group>
                 </page>
@@ -104,8 +104,10 @@
                             <field name="order_line" attrs="{'readonly': [('state', 'in', ('confirm', 'cancel'))]}">
                                 <tree string="Purchase Order Lines" editable="bottom">
                                     <field name="sequence" widget="handle"/>
-                                    <field name="product_id"
-                                           force_save="1"/>
+                                    <field name="product_id" force_save="1"/>
+                                    <field name="name"/>
+                                    <field name="product_qty"/>
+                                    <field name="product_rental_price"/>
                                 </tree>
                             </field>
                         </page>
