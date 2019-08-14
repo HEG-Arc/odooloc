@@ -62,7 +62,7 @@ class odoolocOrder(models.Model):
         ('cancel', 'Canceled')
     ], string='Status', readonly=True, index=True, copy=False, default='draft', track_visibility='onchange')
 
-    customer_id = fields.Many2one('res.partner', string='Vendor', required=True, states=READONLY_STATES,
+    customer_id = fields.Many2one('res.partner', string='Customer', required=True, states=READONLY_STATES,
                                  change_default=True, track_visibility='always')
 
     currency_id = fields.Many2one('res.currency', 'Currency', required=True, states=READONLY_STATES, \
