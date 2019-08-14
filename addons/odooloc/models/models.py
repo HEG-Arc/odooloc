@@ -70,6 +70,7 @@ class odoolocOrder(models.Model):
 
     order_line = fields.One2many('odooloc.order.line', 'order_id', string='Order Lines',
                                  states={'cancel': [('readonly', True)], 'confirm': [('readonly', True)]}, copy=True)
+    notes = fields.Text('Terms and Conditions')
 
     @api.model
     def create(self, vals):
