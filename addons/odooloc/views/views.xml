@@ -166,6 +166,7 @@
                 <field name="customer_id"/>
                 <field name="date_out"/>
                 <field name="date_in"/>
+                <field name="amount_total"/>
                 <field name="state"/>
             </tree>
         </field>
