@@ -237,10 +237,9 @@
 
     <menuitem id="main_odooloc_menu" name="OdooLOC"/>
 
-    <menuitem id="menu_rental" name="Rentals" parent="main_odooloc_menu"/>
+    <menuitem id="menu_rental" name="Rentals" parent="main_odooloc_menu" sequence="1"/>
 
-    <menuitem id="menu_rental_orders" name="Rental orders" parent="menu_rental" action="odooloc_rental_orders"
-              sequence="1"/>
+    <menuitem id="menu_rental_orders" name="Rental orders" parent="menu_rental" action="odooloc_rental_orders"/>
 
     <menuitem id="menu_inventory" name="Inventory" parent="main_odooloc_menu"/>
     <menuitem id="menu_inventory_warehouses" name="Warehouses" parent="menu_inventory" action="odooloc_warehouses"/>
