@@ -10,10 +10,28 @@ class odoolocOrder(models.Model):
     _description = "Rental order"
     _order = 'name desc'
 
+    @api.depends('order_line.price_total')
+    def _amount_all(self):
+        for order in self:
+            amount_untaxed = amount_tax = 0.0
+            for line in order.order_line:
+                amount_untaxed += line.price_subtotal
+                amount_tax += line.price_tax
+            order.update({
+                'amount_untaxed': order.currency_id.round(amount_untaxed),
+                'amount_tax': order.currency_id.round(amount_tax),
+                'amount_total': amount_untaxed + amount_tax,
+            })
+
     READONLY_STATES = {
         'confirm': [('readonly', True)],
         'cancel': [('readonly', True)],
     }
+
+    amount_untaxed = fields.Monetary(string='Untaxed Amount', store=True, readonly=True, compute='_amount_all',
+                                     track_visibility='always')
+    amount_tax = fields.Monetary(string='Taxes', store=True, readonly=True, compute='_amount_all')
+    amount_total = fields.Monetary(string='Total', store=True, readonly=True, compute='_amount_all')
 
     name = fields.Char('Rental Reference', required=True, index=True, copy=False, default='New')
     sequence = fields.Integer('Sequence', default=1,
