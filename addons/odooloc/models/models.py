@@ -31,7 +31,7 @@ class odoolocOrder(models.Model):
     amount_untaxed = fields.Monetary(string='Untaxed Amount', store=True, readonly=True, compute='_amount_all',
                                      track_visibility='always')
     amount_tax = fields.Monetary(string='Taxes', store=True, readonly=True, compute='_amount_all')
-    amount_total = fields.Monetary(string='Total', store=True, readonly=True, compute='_amount_all')
+    amount_total = fields.Monetary(string='Total amount', store=True, readonly=True, compute='_amount_all')
 
     name = fields.Char('Rental Reference', required=True, index=True, copy=False, default='New')
     sequence = fields.Integer('Sequence', default=1,
