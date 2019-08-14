@@ -108,8 +108,16 @@
                                     <field name="name"/>
                                     <field name="product_qty"/>
                                     <field name="product_rental_price"/>
+                                    <field name="price_tax"/>
+                                    <field name="price_subtotal" widget="monetary"/>
                                 </tree>
                             </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="amount_total"/>
+                                </div>
+                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </group>
                         </page>
                         <page string="Picking" name="picking_information">
                             <group>
