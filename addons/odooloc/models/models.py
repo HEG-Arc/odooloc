@@ -57,7 +57,7 @@ class odoolocOrder(models.Model):
     ], required=True, index=True, copy=False, default='self')
 
     state = fields.Selection([
-        ('draft', 'Draft'),
+        ('draft', 'Waiting confirmation'),
         ('confirm', 'Confirmed'),
         ('cancel', 'Canceled')
     ], string='Status', readonly=True, index=True, copy=False, default='draft', track_visibility='onchange')
