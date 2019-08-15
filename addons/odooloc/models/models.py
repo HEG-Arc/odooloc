@@ -41,9 +41,10 @@ class odoolocOrder(models.Model):
     ], required=True, index=True, copy=False, default='self')
 
     state = fields.Selection([
-        ('draft', 'Waiting confirmation'),
-        ('sent', 'Order sent'),
-        ('done', 'Confirmed'),
+        ('draft', 'Quotation'),
+        ('sent', 'Quotation Sent'),
+        ('sale', 'Rental Order'),
+        ('done', 'Done'),
         ('cancel', 'Canceled')
     ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='draft')
 
@@ -69,6 +70,26 @@ class odoolocOrder(models.Model):
                                                    partner.property_product_pricelist and partner.property_product_pricelist.id)
         result = super(odoolocOrder, self).create(vals)
         return result
+
+    @api.multi
+    def _action_confirm(self):
+        for order in self.filtered(lambda order: order.partner_id not in order.message_partner_ids):
+            order.message_subscribe([order.partner_id.id])
+        self.write({
+            'state': 'sale',
+            'confirmation_date': fields.Datetime.now()
+        })
+        if self.env.context.get('send_email'):
+            self.force_quotation_send()
+
+        # # create an analytic account if at least an expense product
+        # for order in self:
+        #     if any([expense_policy not in [False, 'no'] for expense_policy in
+        #             order.order_line.mapped('product_id.expense_policy')]):
+        #         if not order.analytic_account_id:
+        #             order._create_analytic_account()
+
+        return True
 
 
 class odoolocOrderLine(models.Model):
