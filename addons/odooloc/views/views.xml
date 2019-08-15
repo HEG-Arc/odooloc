@@ -42,8 +42,8 @@
             <xpath expr="//page[@name='sales']" position="after">
                 <page string="Rentals" name="rentals">
                     <group>
-                        <group name="group_product_rental_price">
-                            <field name="product_rental_price"/>
+                        <group name="group_rental_price_unit">
+                            <field name="rental_price_unit"/>
                         </group>
                     </group>
                 </page>
@@ -71,14 +71,13 @@
         <field name="arch" type="xml">
             <form string="Rental Order">
                 <header>
-                    <button name="action_confirm_order" states="draft" string="Confirm order" type="object"
+                    <button name="action_confirm" states="draft" string="Confirm order" type="object"
                             context="{'confirm':True}" class="oe_highlight"/>
-                    <button name="action_cancel_order" states="draft,confirm" string="Cancel" type="object"
+                    <button name="action_cancel" states="draft,confirm" string="Cancel" type="object"
                             context="{'cancel':True}"/>
-
-
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent" readonly="1"/>
                 </header>
+
                 <sheet>
                     <div class="oe_title">
                         <span class="o_form_label" attrs="{'invisible': [('state','in',('draft','sent'))]}">
@@ -90,9 +89,10 @@
                     </div>
                     <group>
                         <group>
-                            <field name="customer_id" domain="[('customer','=',True)]"
+                            <field name="partner_id" domain="[('customer','=',True)]"
                                    context="{'search_default_customer':1, 'show_address': 1, 'show_vat': True}"
                                    options='{"always_reload": True}'/>
+                            <field name="date_order"/>
                         </group>
                         <group>
                             <field name="date_start" options='{"always_reload": True}'/>
@@ -106,8 +106,8 @@
                                     <field name="sequence" widget="handle"/>
                                     <field name="product_id" force_save="1"/>
                                     <field name="name"/>
-                                    <field name="product_qty"/>
-                                    <field name="product_rental_price"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="price_unit"/>
                                     <field name="price_tax"/>
                                     <field name="price_subtotal" widget="monetary"/>
                                 </tree>
@@ -118,7 +118,7 @@
                                 </div>
                                 <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                             </group>
-                            <field name="notes" class="oe_inline" placeholder="Define your terms and conditions ..."/>
+                            <field name="note" class="oe_inline" placeholder="Define your terms and conditions ..."/>
                             <div class="oe_clear"/>
                         </page>
                         <page string="Picking" name="picking_information">
@@ -163,7 +163,7 @@
             <tree decoration-muted="state=='cancel'" decoration-info="state in ('confirmed')" default_order='name desc'
                   string="Rental Order">
                 <field name="name" string="Reference"/>
-                <field name="customer_id"/>
+                <field name="partner_id"/>
                 <field name="date_out"/>
                 <field name="date_in"/>
                 <field name="amount_total"/>
@@ -171,17 +171,6 @@
             </tree>
         </field>
     </record>
-
-    <!--<record id="odooloc_order_line_tree" model="ir.ui.view">
-        <field name="name">odooloc.order.line.tree</field>
-        <field name="model">odooloc.order.line</field>
-        <field name="arch" type="xml">
-            <tree string="Rental Order Lines" create="false">
-                <field name="order_id"/>
-                <field name="name"/>
-            </tree>
-        </field>
-    </record>-->
 
     <record model="ir.actions.act_window" id="odooloc_rental_orders">
         <field name="name">Rental orders</field>
