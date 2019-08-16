@@ -44,6 +44,7 @@ class odoolocOrder(models.Model):
         ('draft', 'Quotation'),
         ('sent', 'Quotation Sent'),
         ('sale', 'Rental Order'),
+        ('rental', 'Rental'),
         ('done', 'Done'),
         ('cancel', 'Canceled')
     ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='draft')
@@ -90,6 +91,12 @@ class odoolocOrder(models.Model):
         #             order._create_analytic_account()
 
         return True
+
+    @api.multi
+    def action_picking(self):
+        self.write({
+            'state': 'rental'
+        })
 
 
 class odoolocOrderLine(models.Model):
