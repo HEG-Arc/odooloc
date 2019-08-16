@@ -49,6 +49,14 @@ class odoolocOrder(models.Model):
         ('cancel', 'Canceled')
     ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='draft')
 
+    picking_state = fields.Selection([
+        ('none', 'No picking status'),
+        ('picking', 'Preparing items'),
+        ('picked', 'Items Ready'),
+        ('handed', 'Handed to Customer'),
+        ('back', 'Back to Company')
+    ], string='Picking Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='none')
+
     order_line = fields.One2many('odooloc.order.line', 'order_id', string='Order Lines',
                                  states={'cancel': [('readonly', True)], 'confirm': [('readonly', True)]}, copy=True)
 
@@ -95,7 +103,8 @@ class odoolocOrder(models.Model):
     @api.multi
     def action_picking(self):
         self.write({
-            'state': 'rental'
+            'state': 'rental',
+            'picking_state': 'picking'
         })
 
 

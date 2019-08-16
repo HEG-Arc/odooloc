@@ -70,34 +70,45 @@
         <field name="model">odooloc.order</field>
         <field name="arch" type="xml">
             <form string="Rental Order">
-                 <header>
-                     <button name="action_picking" string="Picking" type="object" attrs="{'invisible': [('state', 'not in', ['sale'])]}" class="btn-primary"/>
-                    <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="btn-primary"/>
-                    <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" class="btn-primary" attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/>
-                    <button name="print_quotation" string="Print" type="object" states="draft" class="btn-primary o_sale_print"/>
+                <header>
+                    <button name="action_picking" string="Picking" type="object"
+                            attrs="{'invisible': [('state','not in','sale'), ('state','in','rental')]}" class="btn-primary"/>
+                    <button name="action_quotation_send" string="Send by Email" type="object" states="draft"
+                            class="btn-primary"/>
+                    <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice"
+                            groups="sale.group_proforma_sales" class="btn-primary"
+                            attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('invoice_count','&gt;=',1)]}"
+                            context="{'proforma': True}"/>
+                    <button name="print_quotation" string="Print" type="object" states="draft"
+                            class="btn-primary o_sale_print"/>
                     <button name="action_confirm" id="action_confirm"
-                        string="Confirm Sale" class="btn-primary" type="object"
-                        attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+                            string="Confirm Sale" class="btn-primary" type="object"
+                            attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
                     <button name="action_confirm"
-                        string="Confirm Sale" type="object"
-                        attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
-                    <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" attrs="{'invisible': ['|', ('state', '=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/>
-                    <button name="print_quotation" string="Print" type="object" states="sent,sale" class="o_sale_print"/>
+                            string="Confirm Sale" type="object"
+                            attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                    <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice"
+                            groups="sale.group_proforma_sales"
+                            attrs="{'invisible': ['|', ('state', '=', 'draft'), ('invoice_count','&gt;=',1)]}"
+                            context="{'proforma': True}"/>
+                    <button name="print_quotation" string="Print" type="object" states="sent,sale"
+                            class="o_sale_print"/>
                     <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale"/>
                     <button name="action_cancel" states="draft,sent,sale" type="object" string="Cancel"/>
                     <button name="action_draft" states="cancel" type="object" string="Set to Quotation"/>
                     <button name="action_done" type="object" string="Lock" states="sale"
-                        help="If the sale is locked, you can not modify it anymore. However, you will still be able to invoice or deliver."/>
-                    <button name="action_unlock" type="object" string="Unlock" states="done" groups="sales_team.group_sale_manager"/>
+                            help="If the sale is locked, you can not modify it anymore. However, you will still be able to invoice or deliver."/>
+                    <button name="action_unlock" type="object" string="Unlock" states="done"
+                            groups="sales_team.group_sale_manager"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_view_invoice"
-                            type="object"
-                            class="oe_stat_button"
-                            icon="fa-pencil-square-o"
-                            attrs="{'invisible': [('invoice_count', '=', 0)]}">
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o"
+                                attrs="{'invisible': [('invoice_count', '=', 0)]}">
                             <field name="invoice_count" widget="statinfo" string="Invoices"/>
                         </button>
                     </div>
@@ -138,7 +149,8 @@
                                 <div class="oe_subtotal_footer_separator oe_inline">
                                     <label for="amount_total"/>
                                 </div>
-                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator"
+                                       widget="monetary" options="{'currency_field': 'currency_id'}"/>
                             </group>
                             <field name="note" class="oe_inline" placeholder="Define your terms and conditions ..."/>
                             <div class="oe_clear"/>
@@ -194,10 +206,36 @@
         </field>
     </record>
 
+
+    <record id="odooloc_rental_picking_tree" model="ir.ui.view">
+        <field name="name">odooloc.order.tree</field>
+        <field name="model">odooloc.order</field>
+        <field name="arch" type="xml">
+            <tree string="Rental Order">
+                <field name="name" string="Reference"/>
+                <field name="partner_id"/>
+                <field name="date_out"/>
+                <field name="date_in"/>
+                <field name="amount_total"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
     <record model="ir.actions.act_window" id="odooloc_rental_orders">
         <field name="name">Rental orders</field>
         <field name="res_model">odooloc.order</field>
         <field name="view_type">form</field>
+        <field name="view_id" ref="odooloc_rental_order_tree"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="odooloc_rental_picking">
+        <field name="name">Pickings</field>
+        <field name="res_model">odooloc.order</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="odooloc_rental_picking_tree"/>
+        <field name="domain">[('state','=','rental')]</field>
         <field name="view_mode">tree,form</field>
     </record>
 
@@ -252,6 +290,8 @@
     <menuitem id="menu_rental" name="Rentals" parent="main_odooloc_menu" sequence="1"/>
 
     <menuitem id="menu_rental_orders" name="Rental orders" parent="menu_rental" action="odooloc_rental_orders"/>
+    <menuitem id="menu_rental_picking" name="Pickings" parent="menu_rental" action="odooloc_rental_picking"/>
+
 
     <menuitem id="menu_inventory" name="Inventory" parent="main_odooloc_menu"/>
     <menuitem id="menu_inventory_warehouses" name="Warehouses" parent="menu_inventory" action="odooloc_warehouses"/>
