@@ -82,7 +82,7 @@
                     <button name="print_quotation" string="Print" type="object" states="draft"
                             class="btn-primary o_sale_print"/>
                     <button name="action_confirm" id="action_confirm"
-                            string="Confirm Sale" class="btn-primary" type="object"
+                            string="Confirm Rental" class="btn-primary" type="object"
                             attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
                     <button name="action_confirm"
                             string="Confirm Sale" type="object"
@@ -296,10 +296,10 @@
     <menuitem id="menu_inventory" name="Inventory" parent="main_odooloc_menu"/>
     <menuitem id="menu_inventory_warehouses" name="Warehouses" parent="menu_inventory" action="odooloc_warehouses"/>
     <menuitem id="menu_inventory_locations" name="Locations" parent="menu_inventory" action="odooloc_locations"/>
+    <menuitem id="menu_inventory_products" name="Products" parent="menu_inventory" action="odooloc_products"/>
 
     <menuitem id="menu_products" name="Products" parent="main_odooloc_menu"/>
-    <menuitem id="menu_products_products" name="Products" parent="menu_products" action="odooloc_products"/>
-    <menuitem id="menu_products_equipments" name="Equipments" parent="menu_products" action="odooloc_equipments"/>
+
 
     <menuitem id="menu_purchases" name="Purchases" parent="main_odooloc_menu"/>
     <menuitem id="menu_purchases_orders" name="Purchase orders" parent="menu_purchases" action="odooloc_purchases"/>
