@@ -124,17 +124,3 @@ class odoolocOrderLine(models.Model):
 
     order_id = fields.Many2one('odooloc.order', string='Order Reference', index=True, required=True,
                                ondelete='cascade')
-
-
-class MaintenanceEquipment(models.Model):
-    _inherit = "maintenance.equipment"
-
-    odooloc_reference_product_id = fields.Many2one('stock.production.lot', string='Reference product',
-                                                   domain="[('name', '>', 0)]")
-
-
-# Adding product rental price for rentable products
-class ProductTemplate(models.Model):
-    _inherit = "product.template"
-    rental_price_unit = fields.Float('Unit price per day', digits=dp.get_precision('Rental Price'),
-                                     domain=[('rental', '=', True)])

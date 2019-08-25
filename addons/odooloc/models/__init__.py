@@ -1,1 +1,2 @@
-from . import models
+from . import odooloc
+from . import product_template
