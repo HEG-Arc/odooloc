@@ -72,7 +72,7 @@
             <form string="Rental Order">
                 <header>
                     <button name="action_picking" string="Picking" type="object"
-                            attrs="{'invisible': [('state','not in','sale'), ('state','in','rental')]}" class="btn-primary"/>
+                            attrs="{'invisible': [('state','not in','sale')]}" class="btn-primary"/>
                     <button name="action_quotation_send" string="Send by Email" type="object" states="draft"
                             class="btn-primary"/>
                     <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice"

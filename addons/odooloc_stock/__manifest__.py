@@ -21,7 +21,7 @@
     'application': False,
 
     # any module necessary for this one to work correctly
-    'depends': ['odooloc'],
+    'depends': ['odooloc', 'stock_account'],
 
     # always loaded
     'data': [],
