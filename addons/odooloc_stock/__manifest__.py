@@ -24,7 +24,9 @@
     'depends': ['odooloc', 'stock_account'],
 
     # always loaded
-    'data': [],
+    'data': [
+        'views/odooloc_orders.xml',
+    ],
 
     # only loaded in demonstration mode
     'demo': [],

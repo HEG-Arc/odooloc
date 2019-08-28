@@ -1,0 +1,26 @@
+<odoo>
+    <!--    Enable locations by default-->
+    <record model="res.config.settings" id="odooloc.locations_settings">
+        <field name="group_stock_multi_locations" eval="True"/>
+    </record>
+
+    <function model="res.config.settings" name="execute">
+        <!-- ids = -->
+        <value eval="[ref('odooloc.locations_settings')]"/>
+        <!-- context = -->
+        <value eval="{}"/>
+    </function>
+
+
+    <!--    Enable traceability for products-->
+    <record model="res.config.settings" id="odooloc.traceability_settings">
+        <field name="group_stock_production_lot" eval="True"/>
+    </record>
+
+    <function model="res.config.settings" name="execute">
+        <!-- ids = -->
+        <value eval="[ref('odooloc.traceability_settings')]"/>
+        <!-- context = -->
+        <value eval="{}"/>
+    </function>
+</odoo>
