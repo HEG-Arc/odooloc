@@ -1,6 +1,23 @@
 <?xml version="1.0"?>
 <odoo>
     <data>
-        
+        <record id="odooloc_rental_orders_form_inherit_odooloc_stock" model="ir.ui.view">
+            <field name="name">odooloc.order.form.rental.stock</field>
+            <field name="model">odooloc.order</field>
+            <field name="inherit_id" ref="odooloc.odooloc_rental_orders_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' oe_button_box ')]" position="after">
+                    <field name="picking_ids" invisible="1"/>
+                    <button type="object"
+                            name="action_view_delivery"
+                            class="oe_stat_button"
+                            icon="fa-truck"
+                            attrs="{'invisible': [('delivery_count', '=', 0)]}"
+                            groups="base.group_user">
+                        <field name="delivery_count" widget="statinfo" string="Delivery"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
     </data>
 </odoo>

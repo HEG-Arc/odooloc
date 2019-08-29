@@ -66,15 +66,6 @@ class odoolocOrder(models.Model):
         ('cancel', 'Canceled')
     ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='draft')
 
-    picking_state = fields.Selection([
-        ('none', 'No picking status'),
-        ('picking', 'Preparing items'),
-        ('picked', 'Items Ready'),
-        ('handed', 'Handed to Customer'),
-        ('back', 'Back to Company'),
-        ('end', 'Items back in stock')
-    ], string='Picking Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='none')
-
     date_order = fields.Datetime(string='Order Date', required=True, readonly=True, index=True,
                                  states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, copy=False,
                                  default=fields.Datetime.now)
@@ -95,6 +86,7 @@ class odoolocOrder(models.Model):
     pricelist_id = fields.Many2one('product.pricelist', string='Pricelist', required=True, readonly=True,
                                    states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
                                    help="Pricelist for current rentals order.")
+
     currency_id = fields.Many2one("res.currency", related='pricelist_id.currency_id', string="Currency", readonly=True,
                                   required=True)
 
@@ -264,9 +256,24 @@ class odoolocOrderLine(models.Model):
                 'price_subtotal': taxes['total_excluded'],
             })
 
+    @api.model
+    def _prepare_add_missing_fields(self, values):
+        """ Deduce missing required fields from the onchange """
+        res = {}
+        onchange_fields = ['name', 'rental_price', 'product_uom', 'tax_id']
+        if values.get('order_id') and values.get('product_id') and any(f not in values for f in onchange_fields):
+            line = self.new(values)
+            line.on_change_product_id()
+            for field in onchange_fields:
+                if field not in values:
+                    res[field] = line._fields[field].convert_to_write(line[field], line)
+        return res
+
+
 
     @api.model
     def create(self, values):
+        values.update(self._prepare_add_missing_fields(values))
         line = super(odoolocOrderLine, self).create(values)
         if line.order_id.state == 'rent':
             msg = _("Extra line with %s ") % (line.product_id.display_name,)
@@ -320,8 +327,7 @@ class odoolocOrderLine(models.Model):
     product_id = fields.Many2one('product.template', string='Product', domain=[('rental', '=', True)],
                                  change_default=True, required=True)
 
-    product_updatable = fields.Boolean(compute='_compute_product_updatable', string='Can Edit Product', readonly=True,
-                                       default=True)
+
     product_uom_qty = fields.Float(string='Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True,
                                    default=1.0)
     product_uom = fields.Many2one('product.uom', string='Unit of Measure', required=True)
@@ -342,22 +348,33 @@ class odoolocOrderLine(models.Model):
     @api.multi
     @api.onchange('product_id')
     def on_change_product_id(self):
-        if self.product_id.description_sale == "" or not self.product_id.description_sale or self.product_id.description_sale == None:
-            rol_desc = self.product_id.name
+        vals={}
+        if not self.product_uom:
+            vals['product_uom'] = self.product_id.uom_id
+
+        if not (self.product_id.uom_id.id != self.product_uom.id):
+            vals['product_uom_qty'] = 1.0
+
+
+        if not self.name and (self.product_id.description_sale == "" or not self.product_id.description_sale or self.product_id.description_sale == None):
+            vals['name'] = self.product_id.name
+        '''    rol_desc = self.product_id.name
         else:
-            rol_desc = self.product_id.description_sale
+            rol_desc = self.product_id.description_sale'''
 
         res = {
             'value': {
-                'name': rol_desc,
-                'quantity': '1.0',
+                #'name': rol_desc,
+                #'product_uom_qty': '1.0',
                 'rental_price': self.product_id.rental_price,
+                'product_uom': self.product_id.uom_id
             }
         }
 
+        self.update(vals)
+
         return res
 
-    # {'value': {'rental_price': self.product_id.rental_price}}
 
     @api.multi
     def unlink(self):
