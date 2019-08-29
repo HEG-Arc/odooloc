@@ -349,23 +349,15 @@ class odoolocOrderLine(models.Model):
     @api.onchange('product_id')
     def on_change_product_id(self):
         vals={}
-        if not self.product_uom:
+        if not self.product_uom or self.product_id.uom_id.id != self.product_uom.id:
             vals['product_uom'] = self.product_id.uom_id
-
-        if not (self.product_id.uom_id.id != self.product_uom.id):
             vals['product_uom_qty'] = 1.0
 
-
-        if not self.name and (self.product_id.description_sale == "" or not self.product_id.description_sale or self.product_id.description_sale == None):
+        if not self.name or self.name!=self.product_id.name:
             vals['name'] = self.product_id.name
-        '''    rol_desc = self.product_id.name
-        else:
-            rol_desc = self.product_id.description_sale'''
 
         res = {
             'value': {
-                #'name': rol_desc,
-                #'product_uom_qty': '1.0',
                 'rental_price': self.product_id.rental_price,
                 'product_uom': self.product_id.uom_id
             }

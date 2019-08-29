@@ -59,4 +59,4 @@ class ProcurementRule(models.Model):
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
-    rental_id = fields.Many2one(related="group_id.sale_id", string="Rental Order", store=True)
+    odooloc_id = fields.Many2one(related="group_id.odooloc_id", string="Rental Order", store=True)

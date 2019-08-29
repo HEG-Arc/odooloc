@@ -15,7 +15,8 @@ class odoolocOrder(models.Model):
         ('end', 'Items back in stock')
     ], string='Picking Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='none')
 
-    picking_ids = fields.One2many('stock.picking', 'rental_id', string='Pickings')
+    picking_ids = fields.One2many('stock.picking', 'odooloc_id', string='Pickings')
+
     delivery_count = fields.Integer(string='Delivery Orders', compute='_compute_picking_ids')
 
     @api.depends('picking_ids')
