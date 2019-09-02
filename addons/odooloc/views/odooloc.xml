@@ -89,11 +89,9 @@
                                     <field name="date_in" options='{"always_reload": True}'/>
                                 </group>
                                 <group>
-                                    <field name="pick_method" options='{"always_reload": True}'
-                                           string="Picking method"/>
-                                    <field name="access_nip" options='{"always_reload": True}' string="Acess NIP"/>
-                                    <field name="assembly_method" options='{"always_reload": True}'
-                                           string="Assembly method"/>
+                                    <field name="pick_method" options='{"always_reload": True}'/>
+                                    <field name="access_nip" options='{"always_reload": True}'/>
+                                    <field name="assembly_method" options='{"always_reload": True}'/>
                                 </group>
                             </group>
                         </page>

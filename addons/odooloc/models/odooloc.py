@@ -89,11 +89,11 @@ class odoolocOrder(models.Model):
     event_city = fields.Char('Event city')
     comment = fields.Char('Comments')
 
-    pick_method = fields.Boolean('Self-service delivery')
+    pick_method = fields.Boolean(String='Self-service delivery')
 
-    access_nip = fields.Char('Access NIP')
+    access_nip = fields.Char(String='Access NIP')
 
-    assembly_method = fields.Boolean('Self-service assembly')
+    assembly_method = fields.Boolean(String='Self-service assembly')
 
     state = fields.Selection([
         ('draft', 'Quotation'),
