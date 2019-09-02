@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.tools import float_compare
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 from odoo.addons import decimal_precision as dp
 
 from datetime import datetime
+
 
 
 class odoolocOrder(models.Model):
@@ -14,7 +15,7 @@ class odoolocOrder(models.Model):
     _description = "Rental order"
     _order = 'name desc'
 
-    #@api.onchange('nb_days')
+
     @api.depends('order_line.price_total', 'nb_days')
     def _amount_all(self):
         """
@@ -41,6 +42,26 @@ class odoolocOrder(models.Model):
             d2 = datetime.strptime(order.date_start, format)
             nb_days = str((d1 - d2).days + 1)
             order.update({'nb_days': nb_days})
+
+    @api.onchange('date_end', 'date_start', 'date_order', 'confirmation_date')
+    def _check_dates(self):
+        format = '%Y-%m-%d'
+        formatdt = '%Y-%m-%d %H:%M:%S'
+        cd_date_start = datetime.strptime(self.date_start, format).date()
+        cd_date_end = datetime.strptime(self.date_end, format).date()
+        cd_datetime_order = self.date_order
+        cd_date_order = datetime.strptime(cd_datetime_order, formatdt).date()
+        cd_datetime_confirmation = self.date_order
+        cd_date_confirmation = datetime.strptime(cd_datetime_confirmation, formatdt).date()
+
+        if cd_date_end < cd_date_start:
+            raise ValidationError('Start date can not be bigger than end date!')
+        elif cd_date_start < cd_date_order:
+            raise ValidationError('Start date can not be smaller than order date!')
+        elif cd_datetime_confirmation<cd_datetime_order:
+            raise ValidationError('Confirmation date can not be smaller than order date!')
+        elif cd_date_confirmation>cd_date_start:
+            raise ValidationError('Confirmation date can not be bigger than start date!')
 
 
     READONLY_STATES = {
@@ -161,6 +182,7 @@ class odoolocOrder(models.Model):
 
     @api.multi
     def odooloc_send_quotation(self):
+        self._check_dates()
         self.filtered(lambda s: s.state == 'draft').write({'state': 'sent'})
         '''
                 This function opens a window to compose an email, with the edi sale template message loaded by default
@@ -207,6 +229,7 @@ class odoolocOrder(models.Model):
 
     @api.multi
     def _odooloc_confirm_order(self):
+        self._check_dates()
         self.write({
             'state': 'rent',
             'confirmation_date': fields.Datetime.now()
@@ -261,7 +284,7 @@ class odoolocOrderLine(models.Model):
     @api.depends('product_uom_qty', 'discount', 'rental_price', 'tax_id')
     def _compute_amount(self):
         """
-        Compute the amounts of the SO line.
+        Compute the amounts of the RO line.
         """
         for line in self:
             price = line.rental_price * (1 - (line.discount or 0.0) / 100.0)
