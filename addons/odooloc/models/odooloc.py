@@ -2,7 +2,6 @@
 from odoo import models, fields, api
 from odoo.tools import float_compare
 from odoo.exceptions import UserError
-from odoo.osv import expression
 
 from odoo.addons import decimal_precision as dp
 
@@ -41,10 +40,12 @@ class odoolocOrder(models.Model):
     confirmation_date = fields.Datetime('Confirmation Date', readonly=True, index=True,
                                         help="Date on which the rental order is confirmed.", copy=False)
 
-    date_start = fields.Datetime('Start date', required=True, index=True, copy=False, default=fields.Datetime.now)
-    date_end = fields.Datetime('End date', required=True, index=True, copy=False, default=fields.Datetime.now)
+    date_start = fields.Date('Start date', required=True, index=True, copy=False, default=fields.Date.today())
+    date_end = fields.Date('End date', required=True, index=True, copy=False, default=fields.Date.today())
     date_out = fields.Datetime('Picking OUT date', required=True, index=True, copy=False, default=fields.Datetime.now)
     date_in = fields.Datetime('Picking IN date', required=True, index=True, copy=False, default=fields.Datetime.now)
+
+    nb_days = fields.Integer(string='Number of rental days', store=True, readonly=True)
 
     event_name = fields.Char('Event name')
     event_adress = fields.Char('Event adress')
