@@ -55,6 +55,7 @@
                         <group>
                             <field name="date_start" options='{"always_reload": True}'/>
                             <field name="date_end" options='{"always_reload": True}'/>
+                            <field name="nb_days" options='{"always_reload": True}' readonly="1"/>
                         </group>
                     </group>
                     <notebook>
@@ -71,7 +72,6 @@
                                 </tree>
                             </field>
                             <group class="oe_subtotal_footer oe_right">
-                                <label for="amount_daily"/>
                                 <field name="amount_daily"/>
                                 <div class="oe_subtotal_footer_separator oe_inline">
                                     <label for="amount_total"/>
