@@ -28,6 +28,12 @@ class odoolocOrder(models.Model):
                 'amount_total': amount_untaxed + amount_tax,
             })
 
+    @api.depends('date_start', 'date_end')
+    def _compute_nb_days(self):
+        for order in self:
+            nb_days = (order.date_end - order.date_start) + 1
+            order.update({'nb_days': nb_days})
+
     READONLY_STATES = {
         'confirm': [('readonly', True)],
         'cancel': [('readonly', True)],
@@ -45,7 +51,7 @@ class odoolocOrder(models.Model):
     date_out = fields.Datetime('Picking OUT date', required=True, index=True, copy=False, default=fields.Datetime.now)
     date_in = fields.Datetime('Picking IN date', required=True, index=True, copy=False, default=fields.Datetime.now)
 
-    nb_days = fields.Integer(string='Number of rental days', store=True, readonly=True)
+    nb_days = fields.Integer(string='Number of rental days', store=True, readonly=True, compute='_compute_nb_days')
 
     event_name = fields.Char('Event name')
     event_adress = fields.Char('Event adress')
