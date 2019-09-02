@@ -14,7 +14,8 @@ class odoolocOrder(models.Model):
     _description = "Rental order"
     _order = 'name desc'
 
-    @api.depends('order_line.price_total')
+    #@api.onchange('nb_days')
+    @api.depends('order_line.price_total', 'nb_days')
     def _amount_all(self):
         """
         Compute the total amounts of the RO.
