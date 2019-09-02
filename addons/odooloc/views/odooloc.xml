@@ -71,6 +71,8 @@
                                 </tree>
                             </field>
                             <group class="oe_subtotal_footer oe_right">
+                                <label for="amount_daily"/>
+                                <field name="amount_daily"/>
                                 <div class="oe_subtotal_footer_separator oe_inline">
                                     <label for="amount_total"/>
                                 </div>

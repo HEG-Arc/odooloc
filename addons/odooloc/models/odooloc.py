@@ -5,6 +5,8 @@ from odoo.exceptions import UserError
 
 from odoo.addons import decimal_precision as dp
 
+from datetime import datetime
+
 
 class odoolocOrder(models.Model):
     _name = 'odooloc.order'
@@ -22,17 +24,23 @@ class odoolocOrder(models.Model):
             for line in order.order_line:
                 amount_untaxed += line.price_subtotal
                 amount_tax += line.price_tax
+                order._compute_nb_days()
             order.update({
                 'amount_untaxed': amount_untaxed,
                 'amount_tax': amount_tax,
-                'amount_total': amount_untaxed + amount_tax,
+                'amount_daily': amount_untaxed + amount_tax,
+                'amount_total': (amount_untaxed + amount_tax) * order.nb_days,
             })
 
     @api.depends('date_start', 'date_end')
     def _compute_nb_days(self):
         for order in self:
-            nb_days = (order.date_end - order.date_start) + 1
+            format = '%Y-%m-%d'
+            d1 = datetime.strptime(order.date_end, format)
+            d2 = datetime.strptime(order.date_start, format)
+            nb_days = str((d1 - d2).days + 1)
             order.update({'nb_days': nb_days})
+
 
     READONLY_STATES = {
         'confirm': [('readonly', True)],
@@ -108,6 +116,7 @@ class odoolocOrder(models.Model):
     amount_untaxed = fields.Monetary(string='Untaxed Amount', store=True, readonly=True, compute='_amount_all',
                                      track_visibility='onchange')
     amount_tax = fields.Monetary(string='Taxes', store=True, readonly=True, compute='_amount_all')
+    amount_daily = fields.Monetary(string='Total per day', store=True, readonly=True, compute='_amount_all')
     amount_total = fields.Monetary(string='Total', store=True, readonly=True, compute='_amount_all',
                                    track_visibility='always')
 
