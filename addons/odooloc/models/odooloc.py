@@ -382,6 +382,14 @@ class odoolocOrderLine(models.Model):
     ], related='order_id.state', string='Order Status', readonly=True, copy=False, store=True, default='draft')
 
     @api.multi
+    def _prepare_procurement_values(self, group_id=False):
+        """ Prepare specific key for moves or other components that will be created from a procurement rule
+        comming from a sale order line. This method could be override in order to add other custom key that could
+        be used in move/po creation.
+        """
+        return {}
+
+    @api.multi
     @api.onchange('product_id')
     def on_change_product_id(self):
         vals={}

@@ -1,8 +1,10 @@
 from odoo import models, fields, api
 
+
 class StockLocationRoute(models.Model):
     _inherit = "stock.location.route"
     odooloc_selectable = fields.Boolean("Selectable on Rental Order Line")
+
 
 class StockMove(models.Model):
     _inherit = "stock.move"
@@ -21,18 +23,23 @@ class StockMove(models.Model):
         keys_sorted.append(move.odooloc_line_id.id)
         return keys_sorted
 
+    def _action_done(self):
+        result = super(StockMove, self)._action_done()
+        for line in result.mapped('odooloc_line_id').sudo():
+            line.qty_delivered = line._get_delivered_qty()
+        return result
+
     @api.multi
     def write(self, vals):
-        res = super(StockMove, self).write(vals)
-        if 'product_uom_qty' in vals:
+        #if 'product_uom_qty' in vals:
             for move in self:
                 if move.state == 'done':
                     odooloc_order_lines = self.filtered(
                         lambda move: move.odooloc_line_id and move.product_id.expense_policy in [False, 'no']).mapped(
-                        'sale_line_id')
+                        'odooloc_line_id')
                     for line in odooloc_order_lines.sudo():
                         line.qty_delivered = line._get_delivered_qty()
-        return res
+        #return super(StockMove, self).write(vals)
 
     def _assign_picking_post_process(self, new=False):
         super(StockMove, self)._assign_picking_post_process(new=new)
@@ -42,21 +49,32 @@ class StockMove(models.Model):
                 values={'self': self.picking_id, 'origin': self.odooloc_line_id.order_id},
                 subtype_id=self.env.ref('mail.mt_note').id)
 
+
 class ProcurementGroup(models.Model):
     _inherit = 'procurement.group'
+
     odooloc_id = fields.Many2one('odooloc.order', 'Rental Order')
+
 
 class ProcurementRule(models.Model):
     _inherit = 'procurement.rule'
 
-    def _get_stock_move_values(self, product_id, product_qty, product_uom, location_id, name, origin, values,
-                               group_id):
+    def _get_stock_move_values(self, product_id, product_qty, product_uom, location_id, name, origin,
+                               values, group_id):
         result = super(ProcurementRule, self)._get_stock_move_values(product_id, product_qty, product_uom,
-                                                                     location_id, name, origin, values, group_id)
+                                                                     location_id, name, origin, values,
+                                                                     group_id)
         if values.get('odooloc_line_id', False):
             result['odooloc_line_id'] = values['odooloc_line_id']
         return result
 
+
+class StockMove(models.Model):
+    _inherit = "stock.move"
+    odooloc_line_id = fields.Many2one('odooloc.order.line', 'Rental Line')
+
+
 class StockPicking(models.Model):
-    _inherit = "stock.picking"
-    odooloc_id = fields.Many2one(related="group_id.odooloc_id", string="Rental Order", store=True)
+    _inherit = 'stock.picking'
+
+    odooloc_id = fields.Many2one(related="group_id.sale_id", string="Sales Order", store=True)
