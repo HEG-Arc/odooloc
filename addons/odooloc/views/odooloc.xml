@@ -216,17 +216,5 @@
     <menuitem id="menu_rental" name="Rentals" parent="main_odooloc_menu" sequence="1"/>
 
     <menuitem id="menu_rental_orders" name="Rental orders" parent="menu_rental" action="odooloc_rental_orders"/>
-    <menuitem id="menu_rental_picking" name="Pickings" parent="menu_rental" action="odooloc_rental_picking"/>
 
-
-    <menuitem id="menu_inventory" name="Inventory" parent="main_odooloc_menu"/>
-    <menuitem id="menu_inventory_warehouses" name="Warehouses" parent="menu_inventory" action="odooloc_warehouses"/>
-    <menuitem id="menu_inventory_locations" name="Locations" parent="menu_inventory" action="odooloc_locations"/>
-    <menuitem id="menu_inventory_products" name="Products" parent="menu_inventory" action="odooloc_products"/>
-
-    <menuitem id="menu_products" name="Products" parent="main_odooloc_menu"/>
-
-
-    <menuitem id="menu_purchases" name="Purchases" parent="main_odooloc_menu"/>
-    <menuitem id="menu_purchases_orders" name="Purchase orders" parent="menu_purchases" action="odooloc_purchases"/>
 </odoo>
