@@ -13,7 +13,7 @@ Docker https://www.docker.com/get-started
  
 ``docker-compose up -d``
 
-This will setup an odoo 11 instance with opensim, sale_management,purchase,stock module installed
+This will setup an odoo 11 instance with odooloc app and all necessary dependencies
 
 _access:_
     
@@ -27,17 +27,7 @@ _access:_
 ``docker-compose down``
 
 
-# shell access
 
-
-``docker-compose -f docker-compose.yml -f docker-compose.yml run shell
-``
-
-then...
-
-> \>>>env['res.users'].search([]).mapped('name')
->
->['Default Administrator', 'Player A1'] 
 
  
 
