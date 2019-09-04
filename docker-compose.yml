@@ -17,7 +17,7 @@ services:
     ports:
      - "8069:8069"
     tty: true
-    command: -d odoo --load=web,base_sparse_field --dev=reload --without-demo=all --addons-path=/opt/odoo/community_addons,/mnt/extra-addons,/mnt/external-addons/stock-logistics-barcode -i odooloc
+    command: -d odoo --load=web,base_sparse_field --dev=reload --without-demo=all --addons-path=/opt/odoo/community_addons,/mnt/extra-addons,/mnt/external-addons/stock-logistics-barcode -i odooloc,barcodes_generator_abstract
 
     environment:
      - POSTGRES_PASSWORD=odoo
