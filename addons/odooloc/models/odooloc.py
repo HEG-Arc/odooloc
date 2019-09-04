@@ -11,7 +11,6 @@ from datetime import datetime
 
 class odoolocOrder(models.Model):
     _name = 'odooloc.order'
-    # _inherit = 'sale.order'
     _description = "Rental order"
     _order = 'name desc'
 
@@ -277,7 +276,6 @@ class odoolocOrder(models.Model):
 
 class odoolocOrderLine(models.Model):
     _name = 'odooloc.order.line'
-    # _inherit = 'sale.order.line'
     _description = "Rental order line"
     _order = 'order_id desc, name desc'
 
