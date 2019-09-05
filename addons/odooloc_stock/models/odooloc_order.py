@@ -22,8 +22,6 @@ class odoolocOrder(models.Model):
         required=True, readonly=True, states={'draft': [('readonly', False)], 'rent': [('readonly', False)]},
         default=_default_warehouse_id)
 
-    location_src = field
-
     picking_ids = fields.One2many('stock.picking', 'odooloc_id', string='Pickings')
 
 
@@ -32,3 +30,13 @@ class odoolocOrder(models.Model):
 class odoolocOrderLine(models.Model):
     _inherit = 'odooloc.order.line'
 
+    move_ids = fields.One2many('stock.move', 'odooloc_line_id', string='Stock Moves')
+
+    @api.multi
+    def _action_launch_procurement_rule(self):
+        for line in self:
+            values = line._prepare_procurement_values(group_id=group_id)
+            
+            self.env['procurement.group'].run(line.product_id, line.product_uom_qty, line.product_uom,
+                                              line.order_id.partner_id.property_stock_customer, line.name,
+                                              line.order_id.name, values)
