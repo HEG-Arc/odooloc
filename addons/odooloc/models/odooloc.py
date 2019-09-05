@@ -418,3 +418,9 @@ class odoolocOrderLine(models.Model):
             raise UserError(
                 _('You can not remove a rentals order line.\nDiscard changes and try setting the quantity to 0.'))
         return super(odoolocOrderLine, self).unlink()
+
+    def _get_protected_fields(self):
+        return [
+            'product_id', 'name', 'price_unit', 'product_uom', 'product_uom_qty',
+            'tax_id', 'analytic_tag_ids'
+        ]

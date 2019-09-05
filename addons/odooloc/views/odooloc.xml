@@ -84,11 +84,11 @@
                         </page>
                         <page string="Picking" name="picking_information">
                             <group>
-                                <group>
+                                <group string="Dates" name="picking_dates">
                                     <field name="date_out" options='{"always_reload": True}'/>
                                     <field name="date_in" options='{"always_reload": True}'/>
                                 </group>
-                                <group>
+                                <group string="Details" name="picking_details">
                                     <field name="pick_method" options='{"always_reload": True}'/>
                                     <field name="access_nip" options='{"always_reload": True}'/>
                                     <field name="assembly_method" options='{"always_reload": True}'/>
