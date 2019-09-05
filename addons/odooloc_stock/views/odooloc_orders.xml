@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <odoo>
     <data>
-        <record id="odooloc_rental_orders_form_inherit_odooloc_stock" model="ir.ui.view">
+        <!--<record id="odooloc_rental_orders_form_inherit_odooloc_stock" model="ir.ui.view">
             <field name="name">odooloc.order.form.rental.stock</field>
             <field name="model">odooloc.order</field>
             <field name="inherit_id" ref="odooloc.odooloc_rental_orders_form"/>
@@ -13,6 +13,6 @@
                     </group>
                 </xpath>
             </field>
-        </record>
+        </record>-->
     </data>
 </odoo>
