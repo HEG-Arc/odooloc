@@ -42,7 +42,7 @@ class StockMove(models.Model):
         #return super(StockMove, self).write(vals)
 
     def _assign_picking_post_process(self, new=False):
-        super(StockMove, self)._assign_picking_post_process(new=new)
+        #super(StockMove, self)._assign_picking_post_process(new=new)
         if new and self.odooloc_line_id and self.odooloc_line_id.order_id:
             self.picking_id.message_post_with_view(
                 'mail.message_origin_link',

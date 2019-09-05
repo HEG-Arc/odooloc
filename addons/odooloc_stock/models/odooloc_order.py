@@ -163,14 +163,14 @@ class odoolocOrderLine(models.Model):
                     group_id.write(updated_vals)
 
             values = line._prepare_procurement_values(group_id=group_id)
-            product_qty = line.product_uom_qty - qty
+            product_qty = line.product_uom_qty #- qty
 
             procurement_uom = line.product_uom
-            quant_uom = line.product_id.uom_id
-            get_param = self.env['ir.config_parameter'].sudo().get_param
-            if procurement_uom.id != quant_uom.id and get_param('stock.propagate_uom') != '1':
-                product_qty = line.product_uom._compute_quantity(product_qty, quant_uom, rounding_method='HALF-UP')
-                procurement_uom = quant_uom
+            #quant_uom = line.product_id.uom_id
+            #get_param = self.env['ir.config_parameter'].sudo().get_param
+            #if procurement_uom.id != quant_uom.id and get_param('stock.propagate_uom') != '1':
+                #product_qty = line.product_uom._compute_quantity(product_qty, quant_uom, rounding_method='HALF-UP')
+                #procurement_uom = quant_uom
 
             try:
                 self.env['procurement.group'].run(line.product_id, product_qty, procurement_uom,
