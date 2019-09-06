@@ -28,21 +28,27 @@ class odoolocOrder(models.Model):
     @api.multi
     def odooloc_confirm_order(self):
         super(odoolocOrder, self).odooloc_confirm_order()
-        for order in self:
-            order.order_line._create_move()
+        self._create_picking()
 
     @api.multi
     def _create_picking(self):
+        self.env.cr.execute('SELECT id '
+                            'FROM stock_picking_type where name=\'Pick\'')
+        ptid = self.env.cr.fetchone()[0]
+
         stock_location = self.env.ref('stock.stock_location_stock')
         self.picking_ids = self.env['stock.picking'].create({
             'location_id': stock_location.id,
             'location_dest_id': stock_location.id,
-            'picking_type_id': 4,
+            'picking_type_id': ptid,
             'move_type': self.picking_policy,
+            'odooloc_id':self.id,
+            'partner_id':self.partner_id.id,
+            'origin':self.name,
         })
 
         for line in self.order_line:
-            line.move_ids.picking_id =  self.picking_ids
+            line._create_move(self.picking_ids.id)
 
 class odoolocOrderLine(models.Model):
     _inherit = 'odooloc.order.line'
@@ -51,24 +57,23 @@ class odoolocOrderLine(models.Model):
     move_ids = fields.One2many('stock.move', 'odooloc_line_id', string='Stock Moves')
 
     @api.multi
-    def _create_move(self):
+    def _create_move(self, p_pick_id):
         stock_location = self.env.ref('stock.stock_location_stock')
-        for line in self:
-            self.move_ids = self.env['stock.move'].create({
-                'name': 'Items preparation for a rent',
-                'location_id': stock_location.id,
-                'location_dest_id': stock_location.id,
-                'product_id': line.product_id.id,
-                'product_uom': line.product_uom.id,
-                'product_uom_qty': line.product_uom_qty,
-                #'picking_id': self.order_id.
-            })
-            self.move_ids._action_confirm()
-            self.move_ids._action_assign()
-            # This creates a stock.move.line record.
-            # You could also do it manually using self.env['stock.move.line'].create({...})
-            #move_ids.move_line_ids.write({'qty_done': line.product_uom_qty})
-            self.move_ids._action_done()
+        move = self.env['stock.move'].create({
+            'name': 'Use on MyLocation',
+            'location_id': stock_location.id,
+            'location_dest_id': stock_location.id,
+            'product_id': self.product_id.id,
+            'product_uom': self.product_uom.id,
+            'product_uom_qty': self.product_uom_qty,
+            'odooloc_line_id': self.id,
+            'picking_id': p_pick_id,
+        })
+        move._action_confirm()
+        self.move_ids._action_assign()
+        # This creates a stock.move.line record.
+        # You could also do it manually using self.env['stock.move.line'].create({...})
+        #move_ids.move_line_ids.write({'qty_done': line.product_uom_qty})
+        self.move_ids._action_done()
 
-        self.order_id._create_picking()
-
+        #self.order_id._create_picking()
