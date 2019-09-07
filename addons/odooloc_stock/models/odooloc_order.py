@@ -68,12 +68,13 @@ class odoolocOrder(models.Model):
 
     @api.multi
     def _create_picking(self):
+        #defpt = self._default_picking_type()
 
         stock_location = self.env.ref('stock.stock_location_stock')
         self.picking_ids = self.env['stock.picking'].create({
             'location_id': stock_location.id,
             'location_dest_id': stock_location.id,
-            'picking_type_id': self._default_picking_type,
+            'picking_type_id': self._default_picking_type(),
             'move_type': self.picking_policy,
             'odooloc_id': self.id,
             'partner_id': self.partner_id.id,
