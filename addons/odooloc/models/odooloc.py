@@ -72,7 +72,7 @@ class odoolocOrder(models.Model):
     sequence = fields.Integer('Sequence', default=1,
                               help='Gives the sequence order when displaying a rental order list')
 
-    confirmation_date = fields.Datetime('Confirmation Date', readonly=True, index=True,
+    confirmation_date = fields.Datetime('Confirmation date', readonly=True, index=True,
                                         help="Date on which the rental order is confirmed.", copy=False)
 
     date_start = fields.Date('Start date', required=True, index=True, copy=False, default=fields.Date.today())
@@ -102,7 +102,7 @@ class odoolocOrder(models.Model):
         ('cancel', 'Canceled')
     ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='draft')
 
-    date_order = fields.Datetime(string='Order Date', required=True, readonly=True, index=True,
+    date_order = fields.Datetime(string='Order date', required=True, readonly=True, index=True,
                                  states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, copy=False,
                                  default=fields.Datetime.now)
 
@@ -111,7 +111,8 @@ class odoolocOrder(models.Model):
 
     partner_id = fields.Many2one('res.partner', string='Customer', readonly=True,
                                  states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, required=True,
-                                 change_default=True, index=True, track_visibility='always')
+                                 index=True, track_visibility='always')
+
     partner_invoice_id = fields.Many2one('res.partner', string='Invoice Address', readonly=True, required=True,
                                          states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
                                          help="Invoice address for current rentals order.")

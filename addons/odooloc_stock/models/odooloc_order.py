@@ -68,8 +68,6 @@ class odoolocOrder(models.Model):
 
     @api.multi
     def _create_picking(self):
-        #defpt = self._default_picking_type()
-
         stock_location = self.env.ref('stock.stock_location_stock')
         self.picking_ids = self.env['stock.picking'].create({
             'location_id': stock_location.id,
@@ -88,6 +86,7 @@ class odoolocOrder(models.Model):
 class odoolocOrderLine(models.Model):
     _inherit = 'odooloc.order.line'
 
+    # # Add relation to routes model
     # route_id = fields.Many2one('stock.location.route', string='Route', domain=[('odooloc_selectable', '=', True)],
     #     ondelete='restrict')
 
@@ -108,9 +107,4 @@ class odoolocOrderLine(models.Model):
         })
         move._action_confirm()
         self.move_ids._action_assign()
-        # This creates a stock.move.line record.
-        # You could also do it manually using self.env['stock.move.line'].create({...})
-        # move_ids.move_line_ids.write({'qty_done': line.product_uom_qty})
         self.move_ids._action_done()
-
-        # self.order_id._create_picking()
