@@ -54,28 +54,41 @@ class odoolocOrder(models.Model):
         self._create_picking()
 
     @api.multi
-    def _create_picking(self):
+    def _default_picking_type(self):
         self.env.cr.execute('SELECT id '
                             'FROM stock_picking_type where name=\'Pick\'')
-        ptid = self.env.cr.fetchone()[0]
+        default_picking_type = self.env.cr.fetchone()[0]
+
+        # if not default_picking_type:
+        #     default_picking_type = self.env.ref('stock.stock_picking_type').create({
+        #
+        #     })
+
+        return default_picking_type
+
+    @api.multi
+    def _create_picking(self):
 
         stock_location = self.env.ref('stock.stock_location_stock')
         self.picking_ids = self.env['stock.picking'].create({
             'location_id': stock_location.id,
             'location_dest_id': stock_location.id,
-            'picking_type_id': ptid,
+            'picking_type_id': self._default_picking_type,
             'move_type': self.picking_policy,
-            'odooloc_id':self.id,
-            'partner_id':self.partner_id.id,
-            'origin':self.name,
+            'odooloc_id': self.id,
+            'partner_id': self.partner_id.id,
+            'origin': self.name,
         })
 
         for line in self.order_line:
             line._create_move(self.picking_ids.id)
 
+
 class odoolocOrderLine(models.Model):
     _inherit = 'odooloc.order.line'
 
+    # route_id = fields.Many2one('stock.location.route', string='Route', domain=[('odooloc_selectable', '=', True)],
+    #     ondelete='restrict')
 
     move_ids = fields.One2many('stock.move', 'odooloc_line_id', string='Stock Moves')
 
@@ -96,7 +109,7 @@ class odoolocOrderLine(models.Model):
         self.move_ids._action_assign()
         # This creates a stock.move.line record.
         # You could also do it manually using self.env['stock.move.line'].create({...})
-        #move_ids.move_line_ids.write({'qty_done': line.product_uom_qty})
+        # move_ids.move_line_ids.write({'qty_done': line.product_uom_qty})
         self.move_ids._action_done()
 
-        #self.order_id._create_picking()
+        # self.order_id._create_picking()
