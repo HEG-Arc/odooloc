@@ -72,7 +72,7 @@ class odoolocOrder(models.Model):
     sequence = fields.Integer('Sequence', default=1,
                               help='Gives the sequence order when displaying a rental order list')
 
-    confirmation_date = fields.Datetime('Confirmation Date', readonly=True, index=True,
+    confirmation_date = fields.Datetime('Confirmation date', readonly=True, index=True,
                                         help="Date on which the rental order is confirmed.", copy=False)
 
     date_start = fields.Date('Start date', required=True, index=True, copy=False, default=fields.Date.today())
@@ -102,7 +102,7 @@ class odoolocOrder(models.Model):
         ('cancel', 'Canceled')
     ], string='Status', readonly=True, copy=False, index=True, track_visibility='onchange', default='draft')
 
-    date_order = fields.Datetime(string='Order Date', required=True, readonly=True, index=True,
+    date_order = fields.Datetime(string='Order date', required=True, readonly=True, index=True,
                                  states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, copy=False,
                                  default=fields.Datetime.now)
 
@@ -111,7 +111,8 @@ class odoolocOrder(models.Model):
 
     partner_id = fields.Many2one('res.partner', string='Customer', readonly=True,
                                  states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, required=True,
-                                 change_default=True, index=True, track_visibility='always')
+                                 index=True, track_visibility='always')
+
     partner_invoice_id = fields.Many2one('res.partner', string='Invoice Address', readonly=True, required=True,
                                          states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
                                          help="Invoice address for current rentals order.")
@@ -382,6 +383,14 @@ class odoolocOrderLine(models.Model):
     ], related='order_id.state', string='Order Status', readonly=True, copy=False, store=True, default='draft')
 
     @api.multi
+    def _prepare_procurement_values(self, group_id=False):
+        """ Prepare specific key for moves or other components that will be created from a procurement rule
+        comming from a sale order line. This method could be override in order to add other custom key that could
+        be used in move/po creation.
+        """
+        return {}
+
+    @api.multi
     @api.onchange('product_id')
     def on_change_product_id(self):
         vals={}
@@ -410,3 +419,9 @@ class odoolocOrderLine(models.Model):
             raise UserError(
                 _('You can not remove a rentals order line.\nDiscard changes and try setting the quantity to 0.'))
         return super(odoolocOrderLine, self).unlink()
+
+    def _get_protected_fields(self):
+        return [
+            'product_id', 'name', 'price_unit', 'product_uom', 'product_uom_qty',
+            'tax_id', 'analytic_tag_ids'
+        ]

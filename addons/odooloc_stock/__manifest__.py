@@ -26,6 +26,7 @@
     # always loaded
     'data': [
         'views/odooloc_orders.xml',
+        'views/stock.xml',
     ],
 
     # only loaded in demonstration mode
