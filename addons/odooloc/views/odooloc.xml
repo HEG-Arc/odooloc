@@ -67,7 +67,6 @@
                                     <field name="name"/>
                                     <field name="product_uom_qty"/>
                                     <field name="rental_price"/>
-                                    <field name="price_tax"/>
                                     <field name="price_subtotal" widget="monetary"/>
                                 </tree>
                             </field>
@@ -116,6 +115,7 @@
         </field>
     </record>
 
+    <!-- Create rental orders list view -->
     <record id="odooloc_rental_order_tree" model="ir.ui.view">
         <field name="name">odooloc.order.tree</field>
         <field name="model">odooloc.order</field>
@@ -132,22 +132,7 @@
         </field>
     </record>
 
-
-    <record id="odooloc_rental_picking_tree" model="ir.ui.view">
-        <field name="name">odooloc.order.tree</field>
-        <field name="model">odooloc.order</field>
-        <field name="arch" type="xml">
-            <tree string="Rental Order">
-                <field name="name" string="Reference"/>
-                <field name="partner_id"/>
-                <field name="date_out"/>
-                <field name="date_in"/>
-                <field name="amount_total"/>
-                <field name="state" invisible="1"/>
-            </tree>
-        </field>
-    </record>
-
+    <!-- Create rental orders action -->
     <record model="ir.actions.act_window" id="odooloc_rental_orders">
         <field name="name">Rental orders</field>
         <field name="res_model">odooloc.order</field>
@@ -156,65 +141,8 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <record model="ir.actions.act_window" id="odooloc_rental_picking">
-        <field name="name">Pickings</field>
-        <field name="res_model">odooloc.order</field>
-        <field name="view_type">form</field>
-        <field name="view_id" ref="odooloc_rental_picking_tree"/>
-        <field name="domain">[('state','=','rental')]</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-
-    <!--    Create custom view for equipment creation-->
-    <record model="ir.actions.act_window" id="odooloc_equipments_creation">
-        <field name="name">Products</field>
-        <field name="res_model">product.template</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-
-    <!-- Insert the navigation menu -->
-    <record model="ir.actions.act_window" id="odooloc_warehouses">
-        <field name="name">Warehouses</field>
-        <field name="res_model">stock.warehouse</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <record model="ir.actions.act_window" id="odooloc_locations">
-        <field name="name">Locations</field>
-        <field name="res_model">stock.location</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <record model="ir.actions.act_window" id="odooloc_products">
-        <field name="name">Products</field>
-        <field name="res_model">product.template</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <record model="ir.actions.act_window" id="odooloc_equipments">
-        <field name="name">Equipments</field>
-        <field name="res_model">maintenance.equipment</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <record model="ir.actions.act_window" id="odooloc_purchases">
-        <field name="name">Purchases</field>
-        <field name="res_model">purchase.order</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
+    <!-- Set menu items -->
     <menuitem id="main_odooloc_menu" name="OdooLOC"/>
-
     <menuitem id="menu_rental" name="Rentals" parent="main_odooloc_menu" sequence="1"/>
-
     <menuitem id="menu_rental_orders" name="Rental orders" parent="menu_rental" action="odooloc_rental_orders"/>
-
 </odoo>
