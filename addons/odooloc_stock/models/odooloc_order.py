@@ -75,7 +75,6 @@ class odoolocOrder(models.Model):
 
     @api.multi
     def _create_picking(self):
-        stock_location = self.env.ref('stock.stock_location_stock')
         self.picking_ids = self.env['stock.picking'].create({
             'location_id': self._default_picking_type().default_location_src_id.id,
             'location_dest_id': self._default_picking_type().default_location_dest_id.id,
@@ -85,7 +84,6 @@ class odoolocOrder(models.Model):
             'partner_id': self.partner_id.id,
             'origin': self.name,
         })
-
         for line in self.order_line:
             line._create_move(self.picking_ids.id)
 
@@ -101,11 +99,10 @@ class odoolocOrderLine(models.Model):
 
     @api.multi
     def _create_move(self, p_pick_id):
-        stock_location = self.env.ref('stock.stock_location_stock')
         move = self.env['stock.move'].create({
-            'name': 'Use on MyLocation',
-            'location_id': stock_location.id,
-            'location_dest_id': p_pick_id,
+            'name': self.product_id.name,
+            'location_id': p_pick_id.location_id.id,
+            'location_dest_id': p_pick_id.location_dest_id.id,
             'product_id': self.product_id.id,
             'product_uom': self.product_uom.id,
             'product_uom_qty': self.product_uom_qty,
