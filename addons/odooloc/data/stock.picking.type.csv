@@ -1,0 +1,5 @@
+"id","name","sequence_id/id","code","default_location_src_id/id","default_location_dest_id/id"
+"odooloc.stock_picking_type_7_5942dd77","Rental Picking","odooloc.ir_sequence_25_cd3750da","Internal","stock.stock_location_stock","odooloc.stock_location_19_fb5ad761"
+"odooloc.stock_picking_type_8_1dafb4c8","Rental Out","odooloc.ir_sequence_26_08ad6689","Internal","odooloc.stock_location_19_fb5ad761","odooloc.stock_location_16_jnn3bvrs"
+"odooloc.stock_picking_type_9_313a9c6b","Rental IN","odooloc.ir_sequence_27_0798b1ea","Internal","odooloc.stock_location_16_jnn3bvrs","odooloc.stock_location_13_k8kd9sdd"
+"odooloc.stock_picking_type_10_dfc1851a","Rental Stock","odooloc.ir_sequence_28_d5e7d252","Internal","odooloc.stock_location_13_k8kd9sdd","stock.stock_location_stock"
