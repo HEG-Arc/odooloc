@@ -1,7 +1,7 @@
 "id","name","prefix","code","padding","number_increment"
 "odooloc.ir_sequence_32_93b18d52","Rental Order","RENT","odooloc.order","5","1"
-odooloc.ir_sequence_27_0798b1ea,"True","Operation Type Sequence Rental IN","WH/RENT/IN/","","5","1"
-odooloc.ir_sequence_26_08ad6689,"True","Operation Type Sequence Rental Out","WH/RENT/OUT/","","5","1"
-odooloc.ir_sequence_25_cd3750da,"True","Operation Type Sequence Rental Picking","WH/RENT/PICK/","","5","1"
-odooloc.ir_sequence_28_d5e7d252,"True","Operation Type Sequence Rental Stock","WH/RENT/STOCK/","","5","1"
+odooloc.ir_sequence_27_0798b1ea,"Operation Type Sequence Rental IN","WH/RENT/IN/","","5","1"
+odooloc.ir_sequence_26_08ad6689,"Operation Type Sequence Rental Out","WH/RENT/OUT/","","5","1"
+odooloc.ir_sequence_25_cd3750da,"Operation Type Sequence Rental Picking","WH/RENT/PICK/","","5","1"
+odooloc.ir_sequence_28_d5e7d252,"Operation Type Sequence Rental Stock","WH/RENT/STOCK/","","5","1"
 
