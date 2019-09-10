@@ -85,7 +85,7 @@ class odoolocOrder(models.Model):
             'origin': self.name,
         })
         for line in self.order_line:
-            line._create_move(self.picking_ids.id)
+            line._create_move(self.picking_ids)
 
 
 class odoolocOrderLine(models.Model):
@@ -98,16 +98,16 @@ class odoolocOrderLine(models.Model):
     move_ids = fields.One2many('stock.move', 'odooloc_line_id', string='Stock Moves')
 
     @api.multi
-    def _create_move(self, p_pick_id):
+    def _create_move(self, p_pick):
         move = self.env['stock.move'].create({
             'name': self.product_id.name,
-            'location_id': p_pick_id.location_id.id,
-            'location_dest_id': p_pick_id.location_dest_id.id,
+            'location_id': p_pick.location_id.id,
+            'location_dest_id': p_pick.location_dest_id.id,
             'product_id': self.product_id.id,
             'product_uom': self.product_uom.id,
             'product_uom_qty': self.product_uom_qty,
             'odooloc_line_id': self.id,
-            'picking_id': p_pick_id,
+            'picking_id': p_pick.id,
         })
         move._action_confirm()
         self.move_ids._action_assign()
