@@ -13,9 +13,6 @@ class odoolocOrder(models.Model):
 
     @api.depends('order_line.price_subtotal', 'nb_days')
     def _amount_all(self):
-        """
-        Compute the total amounts of the rental order.
-        """
         for order in self:
             amount_daily = 0.0
             for line in order.order_line:
@@ -219,9 +216,6 @@ class odoolocOrderLine(models.Model):
 
     @api.depends('product_uom_qty', 'rental_price')
     def _compute_amount(self):
-        """
-        Compute the amounts of the RO line.
-        """
         for line in self:
             price_subtotal = line.rental_price * line.product_uom_qty
             line.update({
@@ -318,3 +312,8 @@ class odoolocOrderLine(models.Model):
         return [
             'product_id', 'name', 'rental_price', 'product_uom', 'product_uom_qty',
         ]
+
+
+    def myFunction(self,param1,param2):
+        variable = param1+param2
+        return variable

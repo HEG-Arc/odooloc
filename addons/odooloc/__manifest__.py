@@ -36,7 +36,8 @@
         'data/product.template.csv',
         'data/stock.warehouse.csv',
         'data/stock.location.csv',
-        'data/stock.production.lot.csv'
+        'data/stock.production.lot.csv',
+        'data/stock.picking.type.csv'
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -55,9 +55,16 @@ class odoolocOrder(models.Model):
 
     @api.multi
     def _default_picking_type(self):
+        picking_type_name = 'Rental Picking'
+
         self.env.cr.execute('SELECT id '
-                            'FROM stock_picking_type where name=\'Pick\'')
-        default_picking_type = self.env.cr.fetchone()[0]
+                            'FROM stock_picking_type where name=\''+picking_type_name+'\'')
+        picking_id = self.env.cr.fetchone()[0]
+
+        default_picking_type = self.env['stock.picking.type'].search([('id','=',picking_id)])
+
+        # picking_type_name = 'Rental Picking'
+        #         default_picking_type = self.env['stock.picking.type'].search([('name', 'in', picking_type_name)])
 
         # if not default_picking_type:
         #     default_picking_type = self.env.ref('stock.stock_picking_type').create({
@@ -68,19 +75,17 @@ class odoolocOrder(models.Model):
 
     @api.multi
     def _create_picking(self):
-        stock_location = self.env.ref('stock.stock_location_stock')
         self.picking_ids = self.env['stock.picking'].create({
-            'location_id': stock_location.id,
-            'location_dest_id': stock_location.id,
-            'picking_type_id': self._default_picking_type(),
+            'location_id': self._default_picking_type().default_location_src_id.id,
+            'location_dest_id': self._default_picking_type().default_location_dest_id.id,
+            'picking_type_id': self._default_picking_type().id,
             'move_type': self.picking_policy,
             'odooloc_id': self.id,
             'partner_id': self.partner_id.id,
             'origin': self.name,
         })
-
         for line in self.order_line:
-            line._create_move(self.picking_ids.id)
+            line._create_move(self.picking_ids)
 
 
 class odoolocOrderLine(models.Model):
@@ -93,17 +98,16 @@ class odoolocOrderLine(models.Model):
     move_ids = fields.One2many('stock.move', 'odooloc_line_id', string='Stock Moves')
 
     @api.multi
-    def _create_move(self, p_pick_id):
-        stock_location = self.env.ref('stock.stock_location_stock')
+    def _create_move(self, p_pick):
         move = self.env['stock.move'].create({
-            'name': 'Use on MyLocation',
-            'location_id': stock_location.id,
-            'location_dest_id': stock_location.id,
+            'name': self.product_id.name,
+            'location_id': p_pick.location_id.id,
+            'location_dest_id': p_pick.location_dest_id.id,
             'product_id': self.product_id.id,
             'product_uom': self.product_uom.id,
             'product_uom_qty': self.product_uom_qty,
             'odooloc_line_id': self.id,
-            'picking_id': p_pick_id,
+            'picking_id': p_pick.id,
         })
         move._action_confirm()
         self.move_ids._action_assign()
